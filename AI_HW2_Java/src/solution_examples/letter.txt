@@ -1,0 +1,5 @@
+search order: index order of the letters in the result array
+root -> B -> A -> U -> R -> A -> N -> H (found result: BAURANH)
+               -> A -> R -> A -> T -> H (found result: BAARATH)
+                              -> M -> H (found result: BAARAMH)
+               -> I -> R -> A -> E -> H (found result: BAIRAEH)
