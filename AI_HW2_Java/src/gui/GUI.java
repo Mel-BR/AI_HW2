@@ -1,10 +1,10 @@
-package LevelEditor;
+package gui;
 
-public class TestWindow2 implements Runnable {
+import javax.swing.JFrame;
+
+public class GUI implements Runnable {
 
 
-	private static final long serialVersionUID = 1L;
-	
 	public static final int WIDTH = 160;
 	public static final int HEIGHT = WIDTH/12*9;
 	public static final int SCALE = 3;
@@ -14,9 +14,10 @@ public class TestWindow2 implements Runnable {
 	
 	public boolean running = false;
 	
-	private int tickCount = 0;
+	private long tickCount = 0;
 	
-	public static FrameLevelEditor frame;
+	public static JFrame frame;
+	public static GUIPanel panel;
 
 	public static int windowW = SIZE;
 
@@ -25,10 +26,28 @@ public class TestWindow2 implements Runnable {
 	public static float scaleW = 1;
 	public static float scaleH = 1;
 	
+	int ticks = 0;
+	int frames = 0;
+	
 	public GUI(){
 		
-		frame = new FrameLevelEditor();
+		int[][] test = new int[6][6];
+		test[0][0]=1;
+		test[0][3]=2;
+		test[2][2]=1;
 		
+		frame = new JFrame(NAME);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		panel = new GUIPanel(test,test);
+		frame.add(panel);
+		
+		frame.setSize(panel.windowSize);
+		frame.add(panel);
+		frame.setVisible(true);
+			
+		
+	
 	}
 	
 	public synchronized void start(){
@@ -46,10 +65,8 @@ public class TestWindow2 implements Runnable {
 		long lastTime = System.nanoTime();
 		double nanoPerTick = 1000000000D/60; //1/60 sec
 		
-		int ticks = 0;
-		int frames = 0;
+
 		
-		long lastTimer = System.currentTimeMillis();
 		double delta = 0D;
 		
 		while (running){
