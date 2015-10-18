@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BuildTree {
 	int[][] board = new int [6][6];
@@ -26,12 +28,14 @@ public class BuildTree {
 		int y;
 		int player; // p1 1, p2 2
 		char moveType; // Blitz b, Parachute p
+		Queue<Node> children = new LinkedList<Node>();
 		
 		public Node(int xx, int yy, int pl){
 			x = xx;
 			y = yy;
 			player = pl;
 			moveType = '-';
+			parent.children.add(this);
 			
 			evaluateType();
 			evaluateUtility();
