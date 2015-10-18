@@ -1,7 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-public static class HelpFunc {
+public class HelpFunc {
 	
-	public int[][] textToMatrix(String textFile){
+	public int[][] textToMatrix(String textFile) throws IOException{
 		int [][] board = new int [6][6];
 		
 		FileReader input = new FileReader("/HW2project/src/wargame/res/" + textFile);
@@ -10,9 +13,9 @@ public static class HelpFunc {
 
 		for (int i = 0; (myLine = bufRead.readLine()) != null; i++)
 		{    
-		    String[i] = myLine.split('TAB');
-		    for (int i = 0; i < array2.length; i++)
-		        function(array1[0], array2[i]);
+		    String[] myString= myLine.split("\t");
+		    for (int j = 0; j < myString.length; j++)
+		        board[j][i]= Integer.parseInt(myString[j]);
 		}
 		return board;
 	}
