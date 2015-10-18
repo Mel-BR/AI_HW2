@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="wargame/|wargame/GUIpack/" kind="src" path="AI_HW2_Java/src"/>
+	<classpathentry excluding="GUIpack/" kind="src" path="AI_HW2_Java/src/wargame"/>
+	<classpathentry kind="src" path="AI_HW2_Java/src/wargame/GUIpack"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
