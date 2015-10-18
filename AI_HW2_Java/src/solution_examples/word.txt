@@ -1,8 +1,0 @@
-search order: interjection->clothing->noun->furniture
-root -> UGH -> backtrack
-     -> RAH -> backtrack
-     -> EEK -> backtrack
-     -> AAH -> BRA -> URN -> BAR (found result: BAURANH)
-                   -> ART -> BAR (found result: BAARATH)
-                   -> IRE -> BAR (found result: BAIRAEH)
-                   -> ARM -> BAR (found result: BAARAMH)
