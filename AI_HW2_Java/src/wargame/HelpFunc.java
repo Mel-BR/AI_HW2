@@ -10,7 +10,7 @@ public class HelpFunc {
 
 		FileReader input;
 		try {
-			input = new FileReader("/HW2project/src/wargame/res/" + textFile);
+			input = new FileReader("/AI_HW2/AI_HW2_Java/src/wargame/maps/" + textFile);
 			BufferedReader bufRead = new BufferedReader(input);
 			String myLine = null;
 

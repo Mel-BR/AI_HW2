@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -47,6 +48,8 @@ public class BuildTree {
 		public int checkParents(int x, int y){
 			if (x == -1 && y == -1)
 				return boardState[x][y];
+			else if (boardState[x][y] != 0)
+				return boardState[x][y];
 			else if (parent.x != x && parent.y != y)
 				return parent.checkParents(x, y);
 			else
@@ -56,20 +59,41 @@ public class BuildTree {
 		public void evaluateType(){
 			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player){
 				moveType = 'b';
+				if (checkParents(x+1, y) != player && checkParents(x+1, y) != 0){
+					boardState[x+1][y] = player;
+				}
+				if (checkParents(x-1, y) != player && checkParents(x-1, y) != 0){
+					boardState[x-1][y] = player;
+				}
+				if (checkParents(x, y+1) != player && checkParents(x, y+1) != 0){
+					boardState[x][y+1] = player;
+				}
+				if (checkParents(x, y-1) != player && checkParents(x, y-1) != 0){
+					boardState[x][y-1] = player;
+				}
 			}
 			else 
 				moveType = 'p';
 		}
 		
 		public void evaluateUtility(int player){
-			root.utility = 0;
+			utility = 0;
 			for (int x = 0; x<board.length; x++){
 				for (int y= 0; y<board[0].length; y++){
-					if (root.checkParents(x,y) ==player){
-						root.utility += board[x][y];
+					if (checkParents(x,y) ==player){
+						utility += board[x][y];
 					}
 				}
 			}
+		}
+		
+		public Node searchChildren(int val){
+			Iterator<BuildTree.Node> it = children.iterator();
+			while (it.hasNext()){
+				if (((Node)it).utility == val)
+					return (Node) it;
+			}
+			return null;
 		}
 	}
 }
