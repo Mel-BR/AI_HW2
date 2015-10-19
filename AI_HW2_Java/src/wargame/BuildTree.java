@@ -1,23 +1,26 @@
-package wargame;
-
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class BuildTree {
 	int[][] board = new int [6][6];
 	int[][]  boardState = new int [6][6];
+	Node root;
 	
-	public BuildTree(String boardName, int deapth){
+	public BuildTree(String boardName, int depth){
 		board = HelpFunc.textToMatrix(boardName);
-		Node root = new Node(-1, -1, 1);
-		recursiveBuild(root, deapth);
+		root = new Node(-1, -1, 1);
+		recursiveBuild(root, depth);
 	}
 
-	public void recursiveBuild(Node root, int deapth){
+	public void recursiveBuild(Node root, int depth){
+		if (depth == 0){
+			root.evaluateUtility(1);
+		}
 		for (int x = 0; x<board.length; x++){
 			for (int y= 0; y<board[0].length; y++){
 				if (root.checkParents(x,y) == 0){
-					recursiveBuild(new Node(x,y,(root.player==1)?2:1), deapth-1);
+					recursiveBuild(new Node(x,y,(root.player==1)?2:1), depth-1);
 				}
 			}
 		}
@@ -40,11 +43,12 @@ public class BuildTree {
 			parent.children.add(this);
 			
 			evaluateType();
-			evaluateUtility();
 		}
 		
 		public int checkParents(int x, int y){
 			if (x == -1 && y == -1)
+				return boardState[x][y];
+			else if (boardState[x][y] != 0)
 				return boardState[x][y];
 			else if (parent.x != x && parent.y != y)
 				return parent.checkParents(x, y);
@@ -55,23 +59,41 @@ public class BuildTree {
 		public void evaluateType(){
 			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player){
 				moveType = 'b';
+				if (checkParents(x+1, y) != player && checkParents(x+1, y) != 0){
+					boardState[x+1][y] = player;
+				}
+				if (checkParents(x-1, y) != player && checkParents(x-1, y) != 0){
+					boardState[x-1][y] = player;
+				}
+				if (checkParents(x, y+1) != player && checkParents(x, y+1) != 0){
+					boardState[x][y+1] = player;
+				}
+				if (checkParents(x, y-1) != player && checkParents(x, y-1) != 0){
+					boardState[x][y-1] = player;
+				}
 			}
 			else 
 				moveType = 'p';
 		}
 		
-		public void evaluateUtility(){
-			utility = board[x][y];
-			if (moveType=='b'){
-				if (checkParents(x+1, y) != player && checkParents(x+1, y) != 0)
-					utility += board[x+1][y];
-				if (checkParents(x-1, y) != player && checkParents(x-1, y) != 0)
-					utility += board[x-1][y];
-				if (checkParents(x, y+1) != player && checkParents(x, y+1) != 0)
-					utility += board[x][y+1];
-				if (checkParents(x, y-1) != player && checkParents(x, y-1) != 0)
-					utility += board[x][y-1];
+		public void evaluateUtility(int player){
+			utility = 0;
+			for (int x = 0; x<board.length; x++){
+				for (int y= 0; y<board[0].length; y++){
+					if (checkParents(x,y) ==player){
+						utility += board[x][y];
+					}
+				}
 			}
+		}
+		
+		public Node searchChildren(int val){
+			Iterator<BuildTree.Node> it = children.iterator();
+			while (it.hasNext()){
+				if (((Node)it).utility == val)
+					return (Node) it;
+			}
+			return null;
 		}
 	}
 }
