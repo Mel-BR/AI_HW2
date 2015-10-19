@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
@@ -61,14 +62,15 @@ public class GUIPanel extends JPanel{
     		
 
 
-
-    		
-			box = ImageIO.read(new File("res/box.png")).getScaledInstance(boxSize, boxSize, Image.SCALE_SMOOTH);
-			player1unit = ImageIO.read(new File("res/coin.png")).getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);
-			player2unit = ImageIO.read(new File("res/coin2.png")).getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);
+    		String loc = (new java.io.File( "." ).getCanonicalPath()).replace("\\", "\\\\");
+    		System.out.println(loc);
+			box = new ImageIcon(this.getClass().getResource("/gui/res/box.png")).getImage().getScaledInstance(boxSize, boxSize, Image.SCALE_SMOOTH);
+			player1unit = new ImageIcon(this.getClass().getResource("/gui/res/coin.png")).getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);
+			player2unit = new ImageIcon(this.getClass().getResource("/gui/res/coin2.png")).getImage().getScaledInstance(iconSize, iconSize, Image.SCALE_SMOOTH);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed");
 			e.printStackTrace();
 		}
     	
