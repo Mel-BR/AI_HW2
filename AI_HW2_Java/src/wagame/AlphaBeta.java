@@ -1,3 +1,4 @@
+package wagame;
 import java.util.Iterator;
 
 public class AlphaBeta {

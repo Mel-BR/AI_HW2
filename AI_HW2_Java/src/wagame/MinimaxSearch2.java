@@ -1,4 +1,4 @@
-package maps;
+package wagame;
 
 import java.util.Iterator;
 

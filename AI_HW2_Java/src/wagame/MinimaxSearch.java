@@ -1,13 +1,10 @@
-package wargame;
+package wagame;
 
 import java.util.Queue;
 
-import wargame.BuildTree.Node;
+import wagame.BuildTree.Node;
 
 public class MinimaxSearch {
-
-	
-	
 	
 	
 	public int[] searchMaxMove(){
@@ -69,7 +66,7 @@ public class MinimaxSearch {
 				int tempV = value;
 				Node tempNode = list.remove();
 				Object[] temp = maxValue(tempNode);
-				int tempvalue = (int) temp[0];
+				int tempvalue = (int)temp[0];
 				if(tempvalue<valueOld){
 					value = tempvalue;
 					bestNode = tempNode;
