@@ -1,3 +1,6 @@
+package wargame;
+
+
 import java.util.Iterator;
 
 public class AlphaBeta {
