@@ -1,8 +1,8 @@
-package guii;
+package gui;
 
 import javax.swing.JFrame;
 
-import guii.GUIPanel;
+import gui.GUIPanel;
 import wagame.AlphaBeta;
 import wagame.BuildTree.Node;
 import wagame.HelpFunc;
