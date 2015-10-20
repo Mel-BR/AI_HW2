@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class HelpFunc {
 
@@ -11,7 +13,8 @@ public class HelpFunc {
 
 		FileReader input;
 		try {
-			input = new FileReader("C:/Users/Owner/Desktop/CS/Classes/CS440/AI_HW2/AI_HW2_Java/src/maps/"+textFile);
+			URL res = HelpFunc.class.getResource("/wagame/maps/"+textFile);
+			input = new FileReader(res.getPath());
 			BufferedReader bufRead = new BufferedReader(input);
 			String myLine = null;
 
