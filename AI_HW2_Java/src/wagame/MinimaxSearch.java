@@ -19,7 +19,7 @@ public class MinimaxSearch {
 	public  Object[] maxValue(Node inNode){
 		Object[] values = new Object[2];
 		
-		Queue<Node> list = inNode.children;
+		Queue<Node> list = (Queue<Node>) inNode.children;
 		if (!list.isEmpty()){
 			
 			int value = -9999;
@@ -56,7 +56,7 @@ public class MinimaxSearch {
 	private Object[] minValue(Node inNode) {
 		Object[] values = new Object[2];
 		
-		Queue<Node> list = inNode.children;
+		Queue<Node> list = (Queue<Node>) inNode.children;
 		if (!list.isEmpty()){
 			
 			int value = 9999;

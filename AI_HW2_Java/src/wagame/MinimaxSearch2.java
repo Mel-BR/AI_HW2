@@ -5,7 +5,7 @@ import java.util.Iterator;
 public class MinimaxSearch2 {
 	int move;
 	BuildTree tree;
-	public MinimaxSearch2(String board, int depth){
+	public MinimaxSearch2(int[][] board, int depth){
 		tree = new BuildTree(board, depth);
 		move = recursiveSearch(tree.root, depth, 0, 10000);
 	}
