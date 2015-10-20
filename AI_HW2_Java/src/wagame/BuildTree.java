@@ -1,6 +1,8 @@
 package wagame;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Queue;
 
 public class BuildTree {
@@ -10,7 +12,7 @@ public class BuildTree {
 
 	public BuildTree(int[][] boardIn, int depth){
 		board = boardIn;
-		root = new Node(-1, -1, 1);
+		root = new Node(null,-1, -1, 1);
 		recursiveBuild(root, depth);
 	}
 
@@ -22,18 +24,21 @@ public class BuildTree {
 		for (int x = 0; x<board.length; x++){
 			for (int y= 0; y<board[0].length; y++){
 				if (root.checkParents(x,y) == 0){
-					System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
-					recursiveBuild(new Node(x,y,(root.player==1)?2:1), depth-1);
+					//System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
+					recursiveBuild(new Node(root, x,y,(root.player==1)?2:1), depth-1);
 				}
 			}
 		}
 	}
 
 	public Node searchChildren(int val){
-		Iterator<BuildTree.Node> it = root.children.iterator();
+		System.out.println(root.children);
+		ListIterator<Node> it = root.children.listIterator();
 		while (it.hasNext()){
-			if (((Node)it).utility == val)
-				return (Node) it;
+			Node here = it.next();
+			if (here.utility == val){
+				return here;
+			}
 		}
 		return null;
 	}
@@ -45,20 +50,22 @@ public class BuildTree {
 		public int y;
 		public int player; // p1 1, p2 2
 		char moveType; // Blitz b, Parachute p
-		Queue<Node> children = new LinkedList<Node>();
+		List<Node> children = new LinkedList<Node>();
 
-		public Node(int xx, int yy, int pl){
+		public Node(Node par, int xx, int yy, int pl){
 			x = xx;
 			y = yy;
 			player = pl;
 			moveType = '-';
+			parent=par;
 			if (parent != null){
 				parent.children.add(this);
-
-			evaluateType();}
+				evaluateType();}
 		}
 
 		public int checkParents(int x, int y){
+			if (x < 0 || x>5 || y < 0 || y > 5)
+				return 1;
 			if (parent == null)
 				return boardState[x][y];
 			else if (x == -1 && y == -1)

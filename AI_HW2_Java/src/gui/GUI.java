@@ -128,6 +128,7 @@ public class GUI implements Runnable {
 		gui.start();
 		AlphaBeta alf = new AlphaBeta(gui.panel.currMatrix, 1);
 		Node sol = alf.getSol();
+		System.out.println(sol.player);
 		gui.panel.currMatrix[sol.x][sol.y]=sol.player;
 	}
 }
