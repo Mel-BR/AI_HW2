@@ -13,7 +13,7 @@ public class BuildTree {
 	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
 		
 		boardNums = boardIn;
-		boardPlayer = copy.(boardS);
+		boardPlayer = HelpFunc.copy(boardS);
 		root = new Node(null,-1, -1, player);
 		recursiveBuild(root, depth);
 		
