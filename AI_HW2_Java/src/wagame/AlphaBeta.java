@@ -6,8 +6,10 @@ import wagame.BuildTree.Node;
 public class AlphaBeta {
 	int move;
 	BuildTree tree;
+	int[][]boardPlayer;
 	public AlphaBeta(int[][] board, int[][]state, int depth, int player){
-		tree = new BuildTree(board, state, depth, player);
+		boardPlayer=state;
+		tree = new BuildTree(board, boardPlayer, depth, player);
 		move = recursiveSearch(tree.root, depth, -10000, 10000);
 	}
 
@@ -44,5 +46,19 @@ public class AlphaBeta {
 	public Node getSol(){
 		return tree.searchChildren(move);
 	}
-
+	
+	public void applySol(Node sol){
+		boardPlayer[sol.x][sol.y]=sol.player;
+		if (sol.moveType == 'b'){
+			if (sol.x+1 < 6 && boardPlayer[sol.x+1][sol.y] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x+1][sol.y] = sol.player;
+			if (sol.x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x-1][sol.y] = sol.player;
+			if (sol.y+1 < 6 && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x][sol.y+1] = sol.player;
+			if (sol.y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x][sol.y-1] = sol.player;
+		}
+	}
+	
 }

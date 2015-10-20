@@ -117,12 +117,12 @@ public class GUI implements Runnable {
 		
 		AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,3 ,1);
 		Node sol = alf.getSol();
-		this.currBoard[sol.x][sol.y]=sol.player;
+		alf.applySol(sol);
 		panel.setMatrix(this.currBoard);
 		
 		alf = new AlphaBeta(this.boardState, this.currBoard,3 ,2);
 		sol = alf.getSol();
-		this.currBoard[sol.x][sol.y]=sol.player;
+		alf.applySol(sol);
 		panel.setMatrix(this.currBoard);
 		
 		tickCount++;
