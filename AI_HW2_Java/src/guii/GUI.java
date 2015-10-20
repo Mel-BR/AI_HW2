@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import guii.GUIPanel;
 import wagame.AlphaBeta;
 import wagame.BuildTree.Node;
+import wagame.HelpFunc;
 
 public class GUI implements Runnable {
 
@@ -33,22 +34,24 @@ public class GUI implements Runnable {
 	int ticks = 0;
 	int frames = 0;
 	
+	int[][] boardState = new int[6][6];
+	int[][] currBoard = new int[6][6];
+	
 	public GUI(){
 		
-		int[][] test = new int[6][6];
-		test[0][0]=1;
-		test[0][3]=2;
-		test[2][2]=1;
+
+		boardState = HelpFunc.textToMatrix("Keren.txt");
 		
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		panel = new GUIPanel(test,test);
+		panel = new GUIPanel(currBoard,boardState);
 		frame.add(panel);
 		
 		frame.setSize(panel.windowSize);
 		frame.add(panel);
 		frame.setVisible(true);
+		
 			
 		
 	
@@ -67,7 +70,7 @@ public class GUI implements Runnable {
 	
 	public void run() {
 		long lastTime = System.nanoTime();
-		double nanoPerTick = 1000000000D/60; //1/60 sec
+		double nanoPerTick = 1000000000D/1; //1/60 sec
 		
 
 		
@@ -111,6 +114,17 @@ public class GUI implements Runnable {
 	
 	public void tick(){
 		//Do some shit here
+		
+		AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,3 ,1);
+		Node sol = alf.getSol();
+		this.currBoard[sol.x][sol.y]=sol.player;
+		panel.setMatrix(this.currBoard);
+		
+		alf = new AlphaBeta(this.boardState, this.currBoard,3 ,2);
+		sol = alf.getSol();
+		this.currBoard[sol.x][sol.y]=sol.player;
+		panel.setMatrix(this.currBoard);
+		
 		tickCount++;
 
 
@@ -127,9 +141,6 @@ public class GUI implements Runnable {
 	public static void main(String[] args){
 		GUI gui = new GUI();
 		gui.start();
-		AlphaBeta alf = new AlphaBeta(gui.panel.currMatrix, 1);
-		Node sol = alf.getSol();
-		System.out.println(sol.player);
-		gui.panel.currMatrix[sol.x][sol.y]=sol.player;
+
 	}
 }

@@ -11,7 +11,7 @@ public class HelpFunc {
 
 		FileReader input;
 		try {
-			input = new FileReader("/maps/"+textFile);
+			input = new FileReader("C:/Users/Owner/Desktop/CS/Classes/CS440/AI_HW2/AI_HW2_Java/src/maps/"+textFile);
 			BufferedReader bufRead = new BufferedReader(input);
 			String myLine = null;
 
@@ -31,6 +31,12 @@ public class HelpFunc {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		for (int x = 0; x<6; x++){
+//			for (int y = 0; y<6; y++){
+//				System.out.print(board[y][x]);
+//			}
+//			System.out.println();
+//		}
 		return board;
 	}
 

@@ -73,7 +73,8 @@ public class GUIPanel extends JPanel{
 
 
 
-	private void endAnimation(){
+	public void setMatrix(int[][] matrix){
+		this.currMatrix=matrix;
 
 	}
 
@@ -86,6 +87,7 @@ public class GUIPanel extends JPanel{
 		for(int i = 0; i < currMatrix.length; i++){
 			for (int j = 0; j < currMatrix[i].length; j++){
 				int value = currMatrix[i][j];
+				int valueState = stateMatrix[i][j];
 
 				if (value==boxID){
 
@@ -103,7 +105,7 @@ public class GUIPanel extends JPanel{
 				setForeground(Color.darkGray);
 				Font trbi = new Font("TimesRoman", Font.BOLD, 24);
 				g.setFont(trbi);
-				g.drawString("87",j*boxSize+iconSize/2+5, i*boxSize+iconSize*3/4+5);
+				g.drawString(Integer.toString(valueState),j*boxSize+iconSize/2+5, i*boxSize+iconSize*3/4+5);
 
 			}
 		}
