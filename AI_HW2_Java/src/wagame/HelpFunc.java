@@ -11,7 +11,7 @@ public class HelpFunc {
 
 		FileReader input;
 		try {
-			input = new FileReader("/AI_HW2/AI_HW2_Java/src/wargame/maps/" + textFile);
+			input = new FileReader("/maps/"+textFile);
 			BufferedReader bufRead = new BufferedReader(input);
 			String myLine = null;
 

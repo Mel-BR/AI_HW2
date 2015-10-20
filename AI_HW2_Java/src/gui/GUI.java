@@ -2,6 +2,9 @@ package gui;
 
 import javax.swing.JFrame;
 
+import wagame.AlphaBeta;
+import wagame.BuildTree.Node;
+
 public class GUI implements Runnable {
 
 
@@ -121,6 +124,10 @@ public class GUI implements Runnable {
 	
 	
 	public static void main(String[] args){
-		new GUI().start();
+		GUI gui = new GUI();
+		gui.start();
+		AlphaBeta alf = new AlphaBeta(gui.panel.currMatrix, 1);
+		Node sol = alf.getSol();
+		gui.panel.currMatrix[sol.x][sol.y]=sol.player;
 	}
 }

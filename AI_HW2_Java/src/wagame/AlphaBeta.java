@@ -1,10 +1,12 @@
 package wagame;
 import java.util.Iterator;
 
+import wagame.BuildTree.Node;
+
 public class AlphaBeta {
 	int move;
 	BuildTree tree;
-	public AlphaBeta(String board, int depth){
+	public AlphaBeta(int[][] board, int depth){
 		tree = new BuildTree(board, depth);
 		move = recursiveSearch(tree.root, depth, 0, 10000);
 	}
@@ -37,6 +39,10 @@ public class AlphaBeta {
 			root.utility = val;
 			return val;			
 		}
+	}
+	
+	public Node getSol(){
+		return tree.searchChildren(move);
 	}
 
 }
