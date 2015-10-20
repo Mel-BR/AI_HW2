@@ -8,7 +8,7 @@ public class AlphaBeta {
 	BuildTree tree;
 	public AlphaBeta(int[][] board, int[][]state, int depth, int player){
 		tree = new BuildTree(board, state, depth, player);
-		move = recursiveSearch(tree.root, depth, 0, 10000);
+		move = recursiveSearch(tree.root, depth, -10000, 10000);
 	}
 
 	public int recursiveSearch(BuildTree.Node root, int depth, int alpha, int beta){
@@ -16,7 +16,7 @@ public class AlphaBeta {
 			return root.utility;
 		}
 		else if(root.player==1){
-			int val = 0;
+			int val = -10000;
 			Iterator<BuildTree.Node> it = root.children.iterator();
 			while (it.hasNext()){
 				val = Math.max(val, recursiveSearch(it.next(), depth-1, alpha, beta));

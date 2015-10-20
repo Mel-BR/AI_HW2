@@ -39,10 +39,13 @@ public class HelpFunc {
 //		}
 		return board;
 	}
-
-
-
-
-
+	
+	public static int[][] copy(int[][] orig){
+		int[][]cpy = new int[orig.length][orig[0].length];
+		for (int y = 0; y < orig.length; y++)
+			for (int x= 0; x< orig[0].length; x++)
+				cpy [x][y] = orig [x][y];
+		return cpy;
+	}
 
 }

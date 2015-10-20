@@ -13,9 +13,10 @@ public class BuildTree {
 	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
 		
 		boardNums = boardIn;
-		boardPlayer = boardS;
+		boardPlayer = copy.(boardS);
 		root = new Node(null,-1, -1, player);
 		recursiveBuild(root, depth);
+		
 	}
 
 	public void recursiveBuild(Node root, int depth){
@@ -86,22 +87,22 @@ public class BuildTree {
 				moveType = 'b';
 				if (x+1 < 6 && checkParents(x+1, y) != player && checkParents(x+1, y) != 0){
 
-					System.out.println("Blitz at: " + x + ":" +y);
+					//System.out.println("Blitz at: " + x + ":" +y);
 					boardPlayer[x+1][y] = player;
 				}
 				if (x-1 > -1 && checkParents(x-1, y) != player && checkParents(x-1, y) != 0){
 
-					System.out.println("Blitz at: " + x + ":" +y);
+					//System.out.println("Blitz at: " + x + ":" +y);
 					boardPlayer[x-1][y] = player;
 				}
 				if (y+1 < 6 && checkParents(x, y+1) != player && checkParents(x, y+1) != 0){
 
-					System.out.println("Blitz at: " + x + ":" +y);
+					//System.out.println("Blitz at: " + x + ":" +y);
 					boardPlayer[x][y+1] = player;
 				}
 				if (y-1 > -1 && checkParents(x, y-1) != player && checkParents(x, y-1) != 0){
 
-					System.out.println("Blitz at: " + x + ":" +y);
+					//System.out.println("Blitz at: " + x + ":" +y);
 					boardPlayer[x][y-1] = player;
 				}
 			}
