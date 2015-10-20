@@ -6,13 +6,15 @@ import java.util.ListIterator;
 import java.util.Queue;
 
 public class BuildTree {
-	int[][] board = new int [6][6];
-	int[][]  boardState = new int [6][6];
+	int[][] boardNums = new int [6][6];
+	int[][]  boardPlayer = new int [6][6];
 	Node root;
 
-	public BuildTree(int[][] boardIn, int depth){
-		board = boardIn;
-		root = new Node(null,-1, -1, 1);
+	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
+		
+		boardNums = boardIn;
+		boardPlayer = boardS;
+		root = new Node(null,-1, -1, player);
 		recursiveBuild(root, depth);
 	}
 
@@ -21,8 +23,8 @@ public class BuildTree {
 			root.evaluateUtility(1);
 			return;
 		}
-		for (int x = 0; x<board.length; x++){
-			for (int y= 0; y<board[0].length; y++){
+		for (int x = 0; x<boardNums.length; x++){
+			for (int y= 0; y<boardNums[0].length; y++){
 				if (root.checkParents(x,y) == 0){
 					//System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
 					recursiveBuild(new Node(root, x,y,(root.player==1)?2:1), depth-1);
@@ -32,7 +34,7 @@ public class BuildTree {
 	}
 
 	public Node searchChildren(int val){
-		System.out.println(root.children);
+		//System.out.println(root.children);
 		ListIterator<Node> it = root.children.listIterator();
 		while (it.hasNext()){
 			Node here = it.next();
@@ -65,13 +67,13 @@ public class BuildTree {
 
 		public int checkParents(int x, int y){
 			if (x < 0 || x>5 || y < 0 || y > 5)
-				return 1;
+				return 0;
 			if (parent == null)
-				return boardState[x][y];
+				return boardPlayer[x][y];
 			else if (x == -1 && y == -1)
-				return boardState[x][y];
-			else if (boardState[x][y] != 0)
-				return boardState[x][y];
+				return boardPlayer[x][y];
+			else if (boardPlayer[x][y] != 0)
+				return boardPlayer[x][y];
 			else if (parent.x != x && parent.y != y)
 				return parent.checkParents(x, y);
 			else
@@ -79,19 +81,28 @@ public class BuildTree {
 		}
 
 		public void evaluateType(){
-			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player){
+			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player)
+			{
 				moveType = 'b';
-				if (checkParents(x+1, y) != player && checkParents(x+1, y) != 0){
-					boardState[x+1][y] = player;
+				if (x+1 < 6 && checkParents(x+1, y) != player && checkParents(x+1, y) != 0){
+
+					System.out.println("Blitz at: " + x + ":" +y);
+					boardPlayer[x+1][y] = player;
 				}
-				if (checkParents(x-1, y) != player && checkParents(x-1, y) != 0){
-					boardState[x-1][y] = player;
+				if (x-1 > -1 && checkParents(x-1, y) != player && checkParents(x-1, y) != 0){
+
+					System.out.println("Blitz at: " + x + ":" +y);
+					boardPlayer[x-1][y] = player;
 				}
-				if (checkParents(x, y+1) != player && checkParents(x, y+1) != 0){
-					boardState[x][y+1] = player;
+				if (y+1 < 6 && checkParents(x, y+1) != player && checkParents(x, y+1) != 0){
+
+					System.out.println("Blitz at: " + x + ":" +y);
+					boardPlayer[x][y+1] = player;
 				}
-				if (checkParents(x, y-1) != player && checkParents(x, y-1) != 0){
-					boardState[x][y-1] = player;
+				if (y-1 > -1 && checkParents(x, y-1) != player && checkParents(x, y-1) != 0){
+
+					System.out.println("Blitz at: " + x + ":" +y);
+					boardPlayer[x][y-1] = player;
 				}
 			}
 			else 
@@ -100,10 +111,10 @@ public class BuildTree {
 
 		public void evaluateUtility(int player){
 			utility = 0;
-			for (int x = 0; x<board.length; x++){
-				for (int y= 0; y<board[0].length; y++){
+			for (int x = 0; x<boardNums.length; x++){
+				for (int y= 0; y<boardNums[0].length; y++){
 					if (checkParents(x,y) ==player){
-						utility += board[x][y];
+						utility += boardNums[x][y];
 					}
 				}
 			}

@@ -6,8 +6,8 @@ import wagame.BuildTree.Node;
 public class AlphaBeta {
 	int move;
 	BuildTree tree;
-	public AlphaBeta(int[][] board, int depth){
-		tree = new BuildTree(board, depth);
+	public AlphaBeta(int[][] board, int[][]state, int depth, int player){
+		tree = new BuildTree(board, state, depth, player);
 		move = recursiveSearch(tree.root, depth, 0, 10000);
 	}
 
