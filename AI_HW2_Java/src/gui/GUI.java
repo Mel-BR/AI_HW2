@@ -16,11 +16,12 @@ public class GUI implements Runnable {
 	public static final String NAME = "Wargame";
 
 	public static final int SIZE =1680;
-	
+
 	public boolean running = false;
-	
+	public boolean tack = true;
+
 	private long tickCount = 0;
-	
+
 	public static JFrame frame;
 	public static GUIPanel panel;
 
@@ -30,101 +31,102 @@ public class GUI implements Runnable {
 
 	public static float scaleW = 1;
 	public static float scaleH = 1;
-	
+
 	int ticks = 0;
 	int frames = 0;
-	
+
 	int[][] boardState = new int[6][6];
 	int[][] currBoard = new int[6][6];
-	
-	public GUI(){
-		
 
-		boardState = HelpFunc.textToMatrix("Keren.txt");
-		
+	public GUI(){
+
+
+		boardState = HelpFunc.textToMatrix("Smolensk.txt");
+
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		panel = new GUIPanel(currBoard,boardState);
 		frame.add(panel);
-		
+
 		frame.setSize(panel.windowSize);
 		frame.add(panel);
 		frame.setVisible(true);
-		
-			
-		
-	
+
+
+
+
 	}
-	
+
 	public synchronized void start(){
 		running = true;
 		new Thread(this).start();
 	}
-	
+
 	public synchronized void stop(){
 		running = false;
-		
+
 	}
-	
-	
+
+
 	public void run() {
 		long lastTime = System.nanoTime();
 		double nanoPerTick = 1000000000D/1; //1/60 sec
-		
 
-		
+
+
 		double delta = 0D;
-		
+
 		while (running){
 			long now = System.nanoTime();
 			delta += (now - lastTime)/nanoPerTick;
 			lastTime = now;
 			boolean shouldRender = false;
-					
+
 			while (delta >= 1){
-		    ticks++;
-			tick();
-			delta -= 1;
-			shouldRender = true;
+				ticks++;
+				tick();
+				delta -= 1;
+				shouldRender = true;
 			} 
-			
+
 			try {
 				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			if (shouldRender){
-			frames++;
-			render();
+				frames++;
+				render();
 			}
-			
+
 			/*if (System.currentTimeMillis()-lastTimer >= 1000){
 				lastTimer += 1000;
 				System.out.println(frames+", "+ticks);
 				frames = 0;
 				ticks = 0;
 			}*/
-			
+
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
+
+
 	public void tick(){
 		//Do some shit here
-		
-		AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,3 ,1);
-		Node sol = alf.getSol();
-		alf.applySol(sol);
-		panel.setMatrix(this.currBoard);
-		
-		alf = new AlphaBeta(this.boardState, this.currBoard,3 ,2);
-		sol = alf.getSol();
-		alf.applySol(sol);
-		panel.setMatrix(this.currBoard);
-		
+
+		if (tack){
+			AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,1);
+			alf.applySol(alf.getSol());
+			panel.setMatrix(this.currBoard);}
+		else{		
+			AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,2);
+			alf.applySol(alf.getSol());
+			panel.setMatrix(this.currBoard);
+		}
+		tack=!tack;
+
 		tickCount++;
 
 
@@ -134,10 +136,10 @@ public class GUI implements Runnable {
 		//paint some things you already know
 		frame.repaint();
 		//frame.panel.repaint();
-		
+
 	}
-	
-	
+
+
 	public static void main(String[] args){
 		GUI gui = new GUI();
 		gui.start();
