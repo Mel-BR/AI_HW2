@@ -114,8 +114,12 @@ public class BuildTree {
 			utility = 0;
 			for (int x = 0; x<boardNums.length; x++){
 				for (int y= 0; y<boardNums[0].length; y++){
-					if (checkParents(x,y) ==player){
+					int val = checkParents(x,y);
+					if (val ==player){
 						utility += boardNums[x][y];
+					}
+					else if(val == ((player ==1)? 2:1)){
+						utility -= boardNums[x][y];
 					}
 				}
 			}
