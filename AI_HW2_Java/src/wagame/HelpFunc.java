@@ -36,15 +36,15 @@ public class HelpFunc {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		for (int x = 0; x<6; x++){
-//			for (int y = 0; y<6; y++){
-//				System.out.print(board[y][x]);
-//			}
-//			System.out.println();
-//		}
+		//		for (int x = 0; x<6; x++){
+		//			for (int y = 0; y<6; y++){
+		//				System.out.print(board[y][x]);
+		//			}
+		//			System.out.println();
+		//		}
 		return board;
 	}
-	
+
 	public static int[][] copy(int[][] orig){
 		int[][]cpy = new int[orig.length][orig[0].length];
 		for (int y = 0; y < orig.length; y++)
@@ -52,7 +52,7 @@ public class HelpFunc {
 				cpy [x][y] = orig [x][y];
 		return cpy;
 	}
-	
+
 	public static int[][] clearMatrix(int[][] matrix){
 		for (int row = 0; row < matrix[0].length; row++) {
 			for (int col = 0; col < matrix.length; col++) {
@@ -61,48 +61,49 @@ public class HelpFunc {
 		}
 		return matrix;
 	}
-	
+
 	public static void makeMove(int[][] currBoard, int x, int y, int player){
 		int width = currBoard[0].length;
 		int hight = currBoard.length;
 		boolean blitz = false;
-		
+
 		currBoard[x][y]=player;
-			if (x+1 < width && currBoard[x+1][y] ==  player){
-				blitz = true;
-			}else if(x-1 > -1 && currBoard[x-1][y] ==  player){
-				blitz = true;
-			}else if (y+1 < hight && currBoard[x][y+1] ==  player){
-				blitz = true;
-			}else if(y-1 > -1 && currBoard[x][y-1] ==  player){
-				blitz = true;
+		if (x+1 < width && currBoard[x+1][y] ==  player){
+			blitz = true;
+		}else if(x-1 > -1 && currBoard[x-1][y] ==  player){
+			blitz = true;
+		}else if (y+1 < hight && currBoard[x][y+1] ==  player){
+			blitz = true;
+		}else if(y-1 > -1 && currBoard[x][y-1] ==  player){
+			blitz = true;
+		}
+
+		if (blitz){
+			if (x+1 < width && currBoard[x+1][y] ==  (player==1?2:1) ){
+				currBoard[x+1][y] = player;
+			}if(x-1 > -1 && currBoard[x-1][y] ==  (player==1?2:1)){
+				currBoard[x-1][y] = player;
+			}if (y+1 < hight && currBoard[x][y+1] ==  (player==1?2:1)){
+				currBoard[x][y+1] = player;;
+			}if(y-1 > -1 && currBoard[x][y-1] ==  (player==1?2:1)){
+				currBoard[x][y-1] = player;
 			}
-			
-			if (blitz){
-				if (x+1 < width && currBoard[x+1][y] ==  (player==1?2:1) ){
-					currBoard[x+1][y] = player;
-				}if(x-1 > -1 && currBoard[x-1][y] ==  (player==1?2:1)){
-					currBoard[x-1][y] = player;
-				}if (y+1 < hight && currBoard[x][y+1] ==  (player==1?2:1)){
-					currBoard[x][y+1] = player;;
-				}if(y-1 > -1 && currBoard[x][y-1] ==  (player==1?2:1)){
-					currBoard[x][y-1] = player;
+		}
+	}
+
+	public static int[] calculateScore(int[][] currMatrix, int[][] board,int player1ID, int player2ID){
+		int[] score = new int[2];
+
+		for (int row = 0; row < currMatrix[0].length; row++) {
+			for (int col = 0; col < currMatrix.length; col++) {
+				if(currMatrix[row][col]==player1ID){
+					score[0]+=board[row][col];
+				}else if(currMatrix[row][col]==player2ID){
+					score[1]+=board[row][col];
 				}
 			}
-					
-					
-					
-					
-					
-					
-//					(player+1)%2  ((player == 1)? 2:1))
-//				currBoard[x+1][y] = player;
-//			if (x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x-1][sol.y] = sol.player;
-//			if (y+1 < hight && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x][sol.y+1] = sol.player;
-//			if (y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x][sol.y-1] = sol.player;
+		}
+		return score;
 	}
 
 }
