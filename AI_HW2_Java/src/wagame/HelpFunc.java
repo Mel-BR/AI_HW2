@@ -3,10 +3,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 
-import wagame.BuildTree.Node;
+import gui.infoPanel;
 
 public class HelpFunc {
 
@@ -62,6 +61,21 @@ public class HelpFunc {
 		return matrix;
 	}
 	
+	public static int[] calculateScore(int[][] currMatrix, int[][] board,int player1ID, int player2ID){
+		int[] score = new int[2];
+		
+		for (int row = 0; row < currMatrix[0].length; row++) {
+			for (int col = 0; col < currMatrix.length; col++) {
+				if(currMatrix[row][col]==player1ID){
+					score[0]+=board[row][col];
+				}else if(currMatrix[row][col]==player2ID){
+					score[1]+=board[row][col];
+				}
+			}
+		}
+		return score;
+	}
+	
 	public static void makeMove(int[][] currBoard, int x, int y, int player){
 		int width = currBoard[0].length;
 		int hight = currBoard.length;
@@ -89,20 +103,6 @@ public class HelpFunc {
 					currBoard[x][y-1] = player;
 				}
 			}
-					
-					
-					
-					
-					
-					
-//					(player+1)%2  ((player == 1)? 2:1))
-//				currBoard[x+1][y] = player;
-//			if (x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x-1][sol.y] = sol.player;
-//			if (y+1 < hight && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x][sol.y+1] = sol.player;
-//			if (y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
-//				boardPlayer[sol.x][sol.y-1] = sol.player;
 	}
 
 }

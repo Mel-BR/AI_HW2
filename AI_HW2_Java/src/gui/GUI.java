@@ -48,6 +48,10 @@ public class GUI implements Runnable {
 	int player1mode = 0; //0 = human, 1 = minmax, 2 = alphabeta
 	int player2mode = 1;
 	int playersIDTurn = 1;
+	
+	long startTime;
+	long player1Time;
+	long player2Time;
 
 	public GUI(){
 
@@ -88,8 +92,8 @@ public class GUI implements Runnable {
 		frame.add(infoPanel);
 		frame.setVisible(true);
 
-
-
+		startTime = System.currentTimeMillis();
+		
 
 	}
 
@@ -163,7 +167,10 @@ public class GUI implements Runnable {
 				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,playersIDTurn);
 				alf.applySol(alf.getSol());
 				panel.setMatrix(this.currBoard);
+				
+				this.player1Time+= System.currentTimeMillis()-startTime;
 				playersIDTurn = 2;
+				startTime = System.currentTimeMillis();
 				
 			}
 			
@@ -181,7 +188,10 @@ public class GUI implements Runnable {
 				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,playersIDTurn);
 				alf.applySol(alf.getSol());
 				panel.setMatrix(this.currBoard);
+				
+				this.player2Time+= System.currentTimeMillis()-startTime;
 				playersIDTurn = 1;
+				startTime = System.currentTimeMillis();
 				
 			}
 			
@@ -196,20 +206,30 @@ public class GUI implements Runnable {
 		if (playersIDTurn==1 && player1mode == 0){
 			System.out.printf("row%d, col%d",row,col);
 			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			
+			this.player1Time+= System.currentTimeMillis()-startTime;
 			playersIDTurn = 2;
+			startTime = System.currentTimeMillis();
 		}else if(playersIDTurn==2 && player2mode == 0){
 			System.out.printf("row%d, col%d",row,col);
 			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			
+			this.player2Time+= System.currentTimeMillis()-startTime;
 			playersIDTurn = 1;
+			startTime = System.currentTimeMillis();
 			}
 		render();
 	}
 	
 	public void updateLabels(){
 		infoPanel.labels2[0].setText(Integer.toString(this.playersIDTurn));
-		infoPanel.labels2[1].setText(Integer.toString(123));
-		infoPanel.labels2[2].setText(Integer.toString(123));
 		
+		int[] score = HelpFunc.calculateScore(this.currBoard, this.boardState, 1, 2);
+		infoPanel.labels2[1].setText(Integer.toString(score[0]));
+		infoPanel.labels2[2].setText(Integer.toString(score[1]));
+		
+		infoPanel.labels2[3].setText(Float.toString((float) (this.player1Time/1000.0))+"[s]");
+		infoPanel.labels2[4].setText(Float.toString((float) (this.player2Time/1000.0))+"[s]");
 	}
 
 	public void render(){
