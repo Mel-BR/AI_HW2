@@ -11,7 +11,6 @@ public class Eventhandler implements MouseListener{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent event) {
 		// TODO Auto-generated method stub
 		panel.checkAllButtons(event.getX(),event.getY());
@@ -20,25 +19,21 @@ public class Eventhandler implements MouseListener{
 		
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
