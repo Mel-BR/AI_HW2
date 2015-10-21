@@ -195,11 +195,11 @@ public class GUI implements Runnable {
 	public void makeMove(int col, int row){
 		if (playersIDTurn==1 && player1mode == 0){
 			System.out.printf("row%d, col%d",row,col);
-			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			HelpFunc.makeMove(this.currBoard, row, col, 1);
 			playersIDTurn = 2;
 		}else if(playersIDTurn==2 && player2mode == 0){
 			System.out.printf("row%d, col%d",row,col);
-			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			HelpFunc.makeMove(this.currBoard, row, col, 2);
 			playersIDTurn = 1;
 			}
 		render();
