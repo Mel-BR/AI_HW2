@@ -1,6 +1,10 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import gui.GUIPanel;
 import wagame.AlphaBeta;
@@ -24,7 +28,9 @@ public class GUI implements Runnable {
 
 	public static JFrame frame;
 	public static GUIPanel panel;
-
+	public static InterfacePanel interPanel;
+	public static infoPanel infoPanel;
+	
 	public static int windowW = SIZE;
 
 	public static int windowH = SIZE*10/16;
@@ -37,20 +43,49 @@ public class GUI implements Runnable {
 
 	int[][] boardState = new int[6][6];
 	int[][] currBoard = new int[6][6];
+	
+	int boxSize = 100;
+	int player1mode = 0; //0 = human, 1 = minmax, 2 = alphabeta
+	int player2mode = 1;
+	int playersIDTurn = 1;
 
 	public GUI(){
 
 
 		boardState = HelpFunc.textToMatrix("Smolensk.txt");
+		
+		int boardWidth = (int) ((boardState[0].length)*boxSize);
+		int boardHeight = (int) ((boardState.length)*boxSize);
 
+
+
+		panel = new GUIPanel(this,currBoard,boardState,boxSize);
+		Eventhandler events = new Eventhandler(panel);
+		panel.addMouseListener(events);
+		panel.setBounds(0, 0, boardWidth,boardHeight);
+
+
+		
+		interPanel = new InterfacePanel(this);
+		interPanel.setBounds(boardWidth, 0, 180,boardHeight);
+		interPanel.setBackground(Color.white);
+
+		
+		
+		infoPanel = new infoPanel(this);
+		infoPanel.setBounds(0, boardHeight, boardWidth+interPanel.getWidth(), 100);
+		infoPanel.setBackground(Color.white);
+		
 		frame = new JFrame(NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(null);
 
-		panel = new GUIPanel(currBoard,boardState);
+		
+		Dimension frameSize = new Dimension(panel.getWidth()+interPanel.getWidth()+30,panel.getHeight()+infoPanel.getHeight()+50);
+		frame.setSize(frameSize);
 		frame.add(panel);
-
-		frame.setSize(panel.windowSize);
-		frame.add(panel);
+		frame.add(interPanel);
+		frame.add(infoPanel);
 		frame.setVisible(true);
 
 
@@ -71,7 +106,7 @@ public class GUI implements Runnable {
 
 	public void run() {
 		long lastTime = System.nanoTime();
-		double nanoPerTick = 1000000000D/1; //1/60 sec
+		double nanoPerTick = 1000000000D/60; //1/60 sec
 
 
 
@@ -115,21 +150,66 @@ public class GUI implements Runnable {
 
 	public void tick(){
 		//Do some shit here
-
-		if (tack){
-			AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,1);
-			alf.applySol(alf.getSol());
-			panel.setMatrix(this.currBoard);}
-		else{		
-			AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,2);
-			alf.applySol(alf.getSol());
-			panel.setMatrix(this.currBoard);
+		updateLabels();
+		if(playersIDTurn == 1){
+			
+			if(player1mode==0){
+				
+				
+			}else if(player1mode==1){
+				
+				
+			}else if(player1mode==2){
+				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,playersIDTurn);
+				alf.applySol(alf.getSol());
+				panel.setMatrix(this.currBoard);
+				playersIDTurn = 2;
+				
+			}
+			
+			
+			
+		}else{
+			
+			if(player2mode==0){
+				
+				
+			}else if(player2mode==1){
+				
+				
+			}else if(player2mode==2){
+				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,playersIDTurn);
+				alf.applySol(alf.getSol());
+				panel.setMatrix(this.currBoard);
+				playersIDTurn = 1;
+				
+			}
+			
 		}
-		tack=!tack;
 
 		tickCount++;
 
 
+	}
+	
+	public void makeMove(int col, int row){
+		if (playersIDTurn==1 && player1mode == 0){
+			System.out.printf("row%d, col%d",row,col);
+			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			playersIDTurn = 2;
+		}else if(playersIDTurn==2 && player2mode == 0){
+			System.out.printf("row%d, col%d",row,col);
+			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
+			playersIDTurn = 1;
+			}
+		render();
+	}
+	
+	public void updateLabels(){
+		infoPanel.labels2[0].setText(Integer.toString(this.playersIDTurn));
+		infoPanel.labels2[1].setText(Integer.toString(123));
+		infoPanel.labels2[2].setText(Integer.toString(123));
+		
 	}
 
 	public void render(){

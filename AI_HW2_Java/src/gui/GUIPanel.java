@@ -5,10 +5,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -36,18 +35,16 @@ public class GUIPanel extends JPanel{
 
 	public int[][] currMatrix;
 	private int[][] stateMatrix;
+	private GUI gui;
 
-
-	public GUIPanel( int[][] currMatrix, int[][] stateMatrix) {
+	public GUIPanel(GUI gui, int[][] currMatrix, int[][] stateMatrix, int boxSize) {
 
 		this.currMatrix = currMatrix;
 		this.stateMatrix = stateMatrix;
+		this.gui = gui;
+		this.boxSize = boxSize;
 
 
-		int width = (int) ((this.currMatrix[0].length+0.14)*boxSize);
-		int height = (int) ((this.currMatrix.length+0.3)*boxSize);
-		windowSize = new Dimension();
-		this.windowSize.setSize(width+5,height+20);
 
 		readImages();
 
@@ -122,6 +119,31 @@ public class GUIPanel extends JPanel{
 
 		updateBoard(g);
 
+	}
+
+	
+	protected boolean checkButtons(int x,int y,int xPos,int yPos, int boxX, int boxY){
+		boolean wasPressed;
+		Rectangle imageBounds = new Rectangle(xPos,yPos,boxX, boxY);			//Making a rectangle to represent the actual size of the image Button to test whether you clicked "near" the button  
+		if (imageBounds.contains(x,y)){	
+			wasPressed = true;
+        }else{wasPressed = false;}
+		return wasPressed;
+	}
+
+	public void checkAllButtons(int x, int y) {
+		// TODO Auto-generated method stub
+		for(int i = 0; i < currMatrix.length; i++){
+			for (int j = 0; j < currMatrix[i].length; j++){
+				if (checkButtons(x,y,boxSize*j,boxSize*i, boxSize, boxSize)){
+					if (currMatrix[i][j]==0){
+						gui.makeMove(j,i);
+					}
+				}
+				
+			}
+		}
+		
 	}
 
 }

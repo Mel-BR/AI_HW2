@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import wagame.BuildTree.Node;
+
 public class HelpFunc {
 
 	public static int[][] textToMatrix(String textFile){
@@ -49,6 +51,58 @@ public class HelpFunc {
 			for (int x= 0; x< orig[0].length; x++)
 				cpy [x][y] = orig [x][y];
 		return cpy;
+	}
+	
+	public static int[][] clearMatrix(int[][] matrix){
+		for (int row = 0; row < matrix[0].length; row++) {
+			for (int col = 0; col < matrix.length; col++) {
+				matrix[row][col] = 0;
+			}
+		}
+		return matrix;
+	}
+	
+	public static void makeMove(int[][] currBoard, int x, int y, int player){
+		int width = currBoard[0].length;
+		int hight = currBoard.length;
+		boolean blitz = false;
+		
+		currBoard[x][y]=player;
+			if (x+1 < width && currBoard[x+1][y] ==  player){
+				blitz = true;
+			}else if(x-1 > -1 && currBoard[x-1][y] ==  player){
+				blitz = true;
+			}else if (y+1 < hight && currBoard[x][y+1] ==  player){
+				blitz = true;
+			}else if(y-1 > -1 && currBoard[x][y-1] ==  player){
+				blitz = true;
+			}
+			
+			if (blitz){
+				if (x+1 < width && currBoard[x+1][y] ==  (player==1?2:1) ){
+					currBoard[x+1][y] = player;
+				}if(x-1 > -1 && currBoard[x-1][y] ==  (player==1?2:1)){
+					currBoard[x-1][y] = player;
+				}if (y+1 < hight && currBoard[x][y+1] ==  (player==1?2:1)){
+					currBoard[x][y+1] = player;;
+				}if(y-1 > -1 && currBoard[x][y-1] ==  (player==1?2:1)){
+					currBoard[x][y-1] = player;
+				}
+			}
+					
+					
+					
+					
+					
+					
+//					(player+1)%2  ((player == 1)? 2:1))
+//				currBoard[x+1][y] = player;
+//			if (x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
+//				boardPlayer[sol.x-1][sol.y] = sol.player;
+//			if (y+1 < hight && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
+//				boardPlayer[sol.x][sol.y+1] = sol.player;
+//			if (y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
+//				boardPlayer[sol.x][sol.y-1] = sol.player;
 	}
 
 }
