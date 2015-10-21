@@ -21,7 +21,7 @@ public class BuildTree {
 
 	public void recursiveBuild(Node root, int depth){
 		if (depth <= 0){
-			root.evaluateUtility(1);
+			root.evaluateUtility(root.player);
 			return;
 		}
 		for (int x = 0; x<boardNums.length; x++){
