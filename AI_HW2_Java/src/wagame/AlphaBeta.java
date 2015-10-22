@@ -15,6 +15,8 @@ public class AlphaBeta {
 
 	public int recursiveSearch(BuildTree.Node root, int depth, int alpha, int beta){
 		if (root.children.size()==0){
+
+			//System.out.println("Leaf with utility: " + root.utility);
 			return root.utility;
 		}
 		else if(root.player==1){
@@ -49,6 +51,7 @@ public class AlphaBeta {
 	
 	public void applySol(Node sol){
 		boardPlayer[sol.x][sol.y]=sol.player;
+		System.out.println("Move executed type: " + sol.moveType + " with utility: " + sol.utility);
 		if (sol.moveType == 'b'){
 			if (sol.x+1 < 6 && boardPlayer[sol.x+1][sol.y] == ((sol.player == 1)? 2:1))
 				boardPlayer[sol.x+1][sol.y] = sol.player;

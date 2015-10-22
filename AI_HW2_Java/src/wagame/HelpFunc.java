@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import gui.infoPanel;
+import wagame.BuildTree.Node;
 
 public class HelpFunc {
 
@@ -51,6 +52,29 @@ public class HelpFunc {
 			for (int x= 0; x< orig[0].length; x++)
 				cpy [x][y] = orig [x][y];
 		return cpy;
+	}
+
+	public static int addPos(int[][] board, int[][]val, Node node){
+		int ret = val[node.x][node.y];
+		if (node.moveType == 'b'){
+			if (node.x<5 && board[node.x +1][node.y] == ((node.player == 1)? 2:1)){
+				board[node.x +1][node.y] = node.player;
+				ret += (val[node.x+1][node.y])*2;
+			}
+			if (node.x>0 && board[node.x -1][node.y] == ((node.player == 1)? 2:1)){
+				board[node.x -1][node.y] = node.player;
+				ret += (val[node.x-1][node.y])*2;
+			}
+			if (node.y<5 && board[node.x][node.y+1] == ((node.player == 1)? 2:1)){
+				board[node.x][node.y+1] = node.player;
+				ret += (val[node.x][node.y+1])*2;
+			}
+			if (node.y>0 &&board[node.x][node.y-1] == ((node.player == 1)? 2:1)){
+				board[node.x][node.y-1] = node.player;
+				ret += (val[node.x][node.y-1])*2;
+			}
+		}
+		return ret;
 	}
 
 	public static int[][] clearMatrix(int[][] matrix){
