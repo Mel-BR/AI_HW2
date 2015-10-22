@@ -185,7 +185,7 @@ public class GUI implements Runnable {
 				
 				
 			}else if(player2mode==2){
-				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,7 ,1);
+				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,6 ,1);
 				alf.applySol(alf.getSol());
 				panel.setMatrix(this.currBoard);
 				

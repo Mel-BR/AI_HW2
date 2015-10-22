@@ -96,7 +96,6 @@ public class InterfacePanel extends JPanel implements ActionListener{
 	
 	
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		if( e.getSource() == buttons[0]){
