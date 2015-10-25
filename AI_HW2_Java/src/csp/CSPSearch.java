@@ -63,15 +63,15 @@ public class CSPSearch {
         
         CSP cspProblem = new CSP(problemSize, variableValues, varDomain, puzzleConstraints);
         
-        /* NOTE : you just need to uncomment the two lines corresponding
-        to the type of assignment you want to perform*/
-        
-        
         /* Letter-based assignment */
+        System.out.println("Letter-based assignment");
         cspProblem.RecursiveSearchLetter(new String[problemSize]);
         cspProblem.printTreeSearchLetter();   
         
-        /* Word-based assignment */        
+        System.out.println("\n\n\n");
+        
+        /* Word-based assignment */      
+        System.out.println("Word-based assignment");  
         cspProblem.RecursiveSearchWord(new String[problemSize],new HashSet<String>(), new ArrayList<String>());
         cspProblem.printTreeSearchWord();
         
