@@ -33,8 +33,8 @@ public class infoPanel extends JPanel{
 		labels1[0].setText("Current player:");
 		labels1[1].setText("Player 1 Score:");
 		labels1[2].setText("Player 2 Score:");
-		labels1[3].setText("fefeqfq");
-		labels1[4].setText("fqfqefqe");
+		labels1[3].setText("Player 1 Acc Time:");
+		labels1[4].setText("Player 2 Acc Time:");
 		
 		labels2 = new JLabel[5];
 		for (int i = 0; i < 5 ; i++){
