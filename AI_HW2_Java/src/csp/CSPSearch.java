@@ -52,7 +52,9 @@ public class CSPSearch {
             }
             
         }
-         
+        
+        
+        System.out.println("");
         
         Parser.parsePuzzle("src/csp/files/puzzles/puzzle1.txt"); 
         int problemSize = Parser.getProblemSize();
@@ -60,10 +62,16 @@ public class CSPSearch {
         
         
         CSP cspProblem = new CSP(problemSize, variableValues, varDomain, puzzleConstraints);
-        //cspProblem.RecursiveSearchLetter(new String[problemSize]);
-        //cspProblem.printTreeSearchLetter();        
+        
+        /* NOTE : you just need to uncomment the two lines corresponding
+        to the type of assignment you want to perform*/
         
         
+        /* Letter-based assignment */
+        cspProblem.RecursiveSearchLetter(new String[problemSize]);
+        cspProblem.printTreeSearchLetter();   
+        
+        /* Word-based assignment */        
         cspProblem.RecursiveSearchWord(new String[problemSize],new HashSet<String>(), new ArrayList<String>());
         cspProblem.printTreeSearchWord();
         
