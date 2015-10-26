@@ -122,8 +122,8 @@ public class CSP {
         return true;
     }
     
-    /* Return the first letter that has been been assigned 
-    yet in the order of the index of the main array */
+    /* Old version without heuristic: Return the first letter that has 
+    been been assigned     yet in the order of the index of the main array */
     public int selectUnassignedVariableLetter(String[] assignment){
         for(int i = 0 ; i < assignment.length ; i++){
             if(assignment[i] == null){
