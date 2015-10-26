@@ -10,21 +10,19 @@ public class BuildTree {
 	int[][]  boardPlayer = new int [6][6];
 	Node root;
 	int count = 0;
-	int Superplayer = 0;
 
-	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int play){
+	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
 		
 		boardNums = boardIn;
 		boardPlayer = boardS;
-		Superplayer = play;
-		root = new Node(null,-1, -1, Superplayer);
+		root = new Node(null,-1, -1, player);
 		recursiveBuild(root, depth);
 		System.out.println(count);
 	}
 
 	public void recursiveBuild(Node root, int depth){
 		if (depth <= 0){
-			root.evaluateUtility(Superplayer);
+			root.evaluateUtility(root.player);
 			return;
 		}
 		for (int x = 0; x<boardNums.length; x++){
@@ -87,14 +85,14 @@ public class BuildTree {
 			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player)
 			{
 				moveType = 'b';
-//				if (x+1 < 6 && checkParents(x+1, y) == ((player == 1)? 2:1)){
-//				}
-//				if (x-1 > -1 && checkParents(x-1, y) == ((player == 1)? 2:1)){
-//				}
-//				if (y+1 < 6 && checkParents(x, y+1) == ((player == 1)? 2:1)){
-//				}
-//				if (y-1 > -1 && checkParents(x, y-1) == ((player == 1)? 2:1)){
-//				}
+				if (x+1 < 6 && checkParents(x+1, y) == ((player == 1)? 2:1)){
+				}
+				if (x-1 > -1 && checkParents(x-1, y) == ((player == 1)? 2:1)){
+				}
+				if (y+1 < 6 && checkParents(x, y+1) == ((player == 1)? 2:1)){
+				}
+				if (y-1 > -1 && checkParents(x, y-1) == ((player == 1)? 2:1)){
+				}
 			}
 			else 
 				moveType = 'p';
@@ -107,9 +105,9 @@ public class BuildTree {
 					if (boardNums[x][y] ==player){
 						utility += boardNums[x][y];
 					}
-//					else if(boardNums[x][y] == ((player ==1)? 2:1)){
-//						utility -= boardNums[x][y];
-//					}
+					else if(boardNums[x][y] == ((player ==1)? 2:1)){
+						utility -= boardNums[x][y];
+					}
 				}
 			}
 			int [][] tempBoard = HelpFunc.copy(boardPlayer);
