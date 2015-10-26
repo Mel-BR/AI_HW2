@@ -10,21 +10,21 @@ public class BuildTree {
 	int[][]  boardPlayer = new int [6][6];
 	Node root;
 	int count = 0;
-	int player = 0;
+	int Superplayer = 0;
 
 	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int play){
 		
 		boardNums = boardIn;
 		boardPlayer = boardS;
-		root = new Node(null,-1, -1, player);
+		Superplayer = play;
+		root = new Node(null,-1, -1, Superplayer);
 		recursiveBuild(root, depth);
 		System.out.println(count);
-		player = play;
 	}
 
 	public void recursiveBuild(Node root, int depth){
 		if (depth <= 0){
-			root.evaluateUtility(player);
+			root.evaluateUtility(Superplayer);
 			return;
 		}
 		for (int x = 0; x<boardNums.length; x++){
