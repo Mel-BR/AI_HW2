@@ -150,7 +150,7 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		}else if(e.getSource() == radioButtons2[3]){
 			gui.player2mode = 3;
 		}else if(e.getSource() == radioButtons2[4]){
-			gui.player1mode = 4;
+			gui.player2mode = 4;
 		}else if(e.getSource()==player1Depth){
 			JComboBox cb = (JComboBox)e.getSource();
 	        String depth = (String)cb.getSelectedItem();
