@@ -65,7 +65,7 @@ public class GUI implements Runnable {
 	public GUI(){
 
 
-		boardState = HelpFunc.textToMatrix("Narvik.txt");
+		boardState = HelpFunc.textToMatrix("Keren.txt");
 		
 		int boardWidth = (int) ((boardState[0].length)*boxSize);
 		int boardHeight = (int) ((boardState.length)*boxSize);

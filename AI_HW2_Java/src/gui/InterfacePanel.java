@@ -66,9 +66,9 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		}
 		
 		radioButtons1[0].setText("Human");
-		radioButtons1[1].setText("Minimax");
-		radioButtons1[2].setText("Alphabeta");
-		radioButtons1[3].setText("Alphabeta2");
+		radioButtons1[1].setText("MinimaxHen");
+		radioButtons1[2].setText("AlphabetaMax");
+		radioButtons1[3].setText("AlphabetaHen");
 		radioButtons1[4].setText("MinimaxMax");
 		radioButtons1[0].setSelected(true);
 		
@@ -88,9 +88,9 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		}
 		
 		radioButtons2[0].setText("Human");
-		radioButtons2[1].setText("Minimax");
-		radioButtons2[2].setText("Alphabeta");
-		radioButtons2[3].setText("Alphabeta2");
+		radioButtons2[1].setText("MinimaxHen");
+		radioButtons2[2].setText("AlphabetaMax");
+		radioButtons2[3].setText("AlphabetaHen");
 		radioButtons2[4].setText("MinimaxMax");
 		radioButtons2[2].setSelected(true);
 		
