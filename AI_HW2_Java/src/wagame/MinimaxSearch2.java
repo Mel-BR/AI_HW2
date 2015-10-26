@@ -25,6 +25,7 @@ public class MinimaxSearch2 {
 			while (it.hasNext()){
 				best = Math.max(best, recursiveSearch(it.next(), depth-1));
 			}
+			root.utility = best;
 			return best;
 		}
 		else{
@@ -33,6 +34,7 @@ public class MinimaxSearch2 {
 			while (it.hasNext()){
 				best = Math.min(best, recursiveSearch(it.next(), depth-1));
 			}
+			root.utility = best;
 			return best;	
 		}
 	}
