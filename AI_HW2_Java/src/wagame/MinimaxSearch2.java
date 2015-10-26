@@ -19,7 +19,7 @@ public class MinimaxSearch2 {
 			//System.out.println("Leaf with utility: " + root.utility);
 			return root.utility;
 		}
-		else if(root.player==1){
+		else if(root.player==tree.playerSuper){
 			int best = -10000;
 			Iterator<BuildTree.Node> it = root.children.iterator();
 			while (it.hasNext()){
