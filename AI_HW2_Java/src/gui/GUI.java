@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import gui.GUIPanel;
 import wagame.AlphaBeta;
+import wagame.AlphaBeta2;
 import wagame.BuildTree.Node;
 import wagame.HelpFunc;
 import wagame.MinimaxSearch;
@@ -187,9 +188,8 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player1mode==3){
-					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player1Depth ,1);
-					alf.applySol(alf.getSol());
-					panel.setMatrix(this.currBoard);
+					AlphaBeta2 alf = new AlphaBeta2();
+					alf.searchMaxMove(this.boardState, this.currBoard,player1Depth ,1);
 
 					this.player1Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 2;
@@ -222,10 +222,9 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player2mode==3){
-					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player2Depth ,2);
-					alf.applySol(alf.getSol());
-					//panel.setMatrix(this.currBoard);
-					
+					AlphaBeta2 alf = new AlphaBeta2();
+					alf.searchMaxMove(this.boardState, this.currBoard,player2Depth ,2);
+
 
 					this.player2Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 1;

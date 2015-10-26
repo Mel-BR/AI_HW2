@@ -107,9 +107,9 @@ public class BuildTree {
 					if (boardNums[x][y] ==player){
 						utility += boardNums[x][y];
 					}
-//					else if(boardNums[x][y] == ((player ==1)? 2:1)){
-//						utility -= boardNums[x][y];
-//					}
+					else if(boardNums[x][y] == ((player ==1)? 2:1)){
+						utility -= boardNums[x][y];
+					}
 				}
 			}
 			int [][] tempBoard = HelpFunc.copy(boardPlayer);

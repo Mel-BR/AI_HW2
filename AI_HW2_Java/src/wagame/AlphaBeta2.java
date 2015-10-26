@@ -1,67 +1,100 @@
 package wagame;
-import java.util.Iterator;
+
+import java.util.List;
+import java.util.Queue;
 
 import wagame.BuildTree.Node;
 
 public class AlphaBeta2 {
-	int move;
-	BuildTree tree;
-	int[][]boardPlayer;
-	public AlphaBeta2(int[][] board, int[][]state, int depth, int player){
-		boardPlayer=state;
-		tree = new BuildTree2(board, boardPlayer, depth, player);
-		move = recursiveSearch(tree.root, depth, -10000, 10000);
+	
+	
+	public void searchMaxMove(int[][] board, int[][] currMatrix, int depth,int player){
+		BuildTree tree = new BuildTree(board, currMatrix, depth, player);
+		
+		Object[] solution = maxValue(tree.root, 9999);
+		Node solutionNode = (Node) solution[1];
+		System.out.printf("row=%d,col=%d\n",solutionNode.x,solutionNode.y);
+		HelpFunc.makeMove(currMatrix, solutionNode.x, solutionNode.y, player);
+//		currMatrix[solutionNode.x][solutionNode.y]=player;
+	}
+	
+	
+	
+	public  Object[] maxValue(Node inNode, int pruningCutOff){
+		Object[] values = new Object[2];
+		
+		List<Node> list = (List<Node>) inNode.children;
+		if (!list.isEmpty()){
+			
+			int bestValue = -9999;
+			Node bestNode = null;
+			while(!list.isEmpty()){
+				Node tempNode = list.remove(0);
+				Object[] temp = minValue(tempNode,bestValue);
+				int tempvalue = (int) temp[0];
+				
+				if(tempvalue>bestValue){
+					bestValue = tempvalue;
+					bestNode = tempNode;
+				}if(bestValue>pruningCutOff){
+					break;
+				}
+				
+			}
+			values[0] = bestValue;
+			values[1] = bestNode;
+			
+			return values;
+			
+		}else{
+			values[0] = inNode.utility;
+			values[1] = null;
+			
+			return values;
+		}
 	}
 
-	public int recursiveSearch(BuildTree.Node root, int depth, int alpha, int beta){
-		if (root.children.size()==0){
 
-			//System.out.println("Leaf with utility: " + root.utility);
-			return root.utility;
-		}
-		else if(root.player==1){
-			int val = -10000;
-			Iterator<BuildTree.Node> it = root.children.iterator();
-			while (it.hasNext()){
-				val = Math.max(val, recursiveSearch(it.next(), depth-1, alpha, beta));
-				alpha = Math.max(val, alpha);
-				if (beta <= alpha)
+
+	private Object[] minValue(Node inNode, int pruningCutOff) {
+		Object[] values = new Object[2];
+		
+		List<Node> list = (List<Node>) inNode.children;
+		if (!list.isEmpty()){
+			
+			int bestValue = 9999;
+			Node bestNode = null;
+			while(!list.isEmpty()){
+				Node tempNode = list.remove(0);
+				Object[] temp = maxValue(tempNode,bestValue);
+				int tempvalue = (int)temp[0];
+				if(tempvalue<bestValue){
+					bestValue = tempvalue;
+					bestNode = tempNode;
+				}
+				if(bestValue<pruningCutOff){
 					break;
+				}
+				
 			}
-			root.utility = val;
-			return val;
-		}
-		else{
-			int val = 10000;
-			Iterator<BuildTree.Node> it = root.children.iterator();
-			while (it.hasNext()){
-				val = Math.min(val, recursiveSearch(it.next(), depth-1, alpha, beta));
-				alpha = Math.min(val, alpha);
-				if (beta <= alpha)
-					break;
-			}
-			root.utility = val;
-			return val;			
+			values[0] = bestValue;
+			values[1] = bestNode;
+			
+			return values;
+			
+		}else{
+			values[0] = inNode.utility;
+			values[1] = null;
+			
+			return values;
 		}
 	}
 	
-	public Node getSol(){
-		return tree.searchChildren(move);
-	}
 	
-	public void applySol(Node sol){
-		boardPlayer[sol.x][sol.y]=sol.player;
-		System.out.println("Move executed type: " + sol.moveType + " with utility: " + sol.utility);
-		if (sol.moveType == 'b'){
-			if (sol.x+1 < 6 && boardPlayer[sol.x+1][sol.y] == ((sol.player == 1)? 2:1))
-				boardPlayer[sol.x+1][sol.y] = sol.player;
-			if (sol.x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
-				boardPlayer[sol.x-1][sol.y] = sol.player;
-			if (sol.y+1 < 6 && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
-				boardPlayer[sol.x][sol.y+1] = sol.player;
-			if (sol.y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
-				boardPlayer[sol.x][sol.y-1] = sol.player;
-		}
-	}
+	
+	
+	
 	
 }
+
+
