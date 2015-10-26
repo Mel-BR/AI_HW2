@@ -178,7 +178,7 @@ public class GUI implements Runnable {
 
 
 				}else if(player1mode==2){
-					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player1Depth ,2);
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player1Depth ,1);
 					alf.applySol(alf.getSol());
 					panel.setMatrix(this.currBoard);
 
@@ -187,7 +187,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player1mode==3){
-					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player1Depth ,2);
+					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player1Depth ,1);
 					alf.applySol(alf.getSol());
 					panel.setMatrix(this.currBoard);
 
@@ -213,7 +213,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player2mode==2){
-					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,1);
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,2);
 					alf.applySol(alf.getSol());
 					//panel.setMatrix(this.currBoard);
 
@@ -222,7 +222,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player2mode==3){
-					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player2Depth ,1);
+					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player2Depth ,2);
 					alf.applySol(alf.getSol());
 					//panel.setMatrix(this.currBoard);
 					
@@ -277,8 +277,6 @@ public class GUI implements Runnable {
 	public void render(){
 		//paint some things you already know
 		panel.repaint();
-		panel.revalidate();
-		//frame.panel.repaint();
 
 	}
 
