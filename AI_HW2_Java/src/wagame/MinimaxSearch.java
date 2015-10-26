@@ -1,5 +1,6 @@
 package wagame;
 
+import java.util.List;
 import java.util.Queue;
 
 import wagame.BuildTree.Node;
@@ -22,26 +23,23 @@ public class MinimaxSearch {
 	public  Object[] maxValue(Node inNode){
 		Object[] values = new Object[2];
 		
-		Queue<Node> list = (Queue<Node>) inNode.children;
+		List<Node> list = (List<Node>) inNode.children;
 		if (!list.isEmpty()){
 			
-			int value = -9999;
-			int valueOld = -9999;
+			int bestValue = -9999;
 			Node bestNode = null;
 			while(!list.isEmpty()){
-				int tempV = value;
-				Node tempNode = list.remove();
+				Node tempNode = list.remove(0);
 				Object[] temp = minValue(tempNode);
 				int tempvalue = (int) temp[0];
 				
-				if(tempvalue>valueOld){
-					value = tempvalue;
+				if(tempvalue>bestValue){
+					bestValue = tempvalue;
 					bestNode = tempNode;
 				}
-				valueOld = tempV;
 				
 			}
-			values[0] = value;
+			values[0] = bestValue;
 			values[1] = bestNode;
 			
 			return values;
@@ -59,25 +57,22 @@ public class MinimaxSearch {
 	private Object[] minValue(Node inNode) {
 		Object[] values = new Object[2];
 		
-		Queue<Node> list = (Queue<Node>) inNode.children;
+		List<Node> list = (List<Node>) inNode.children;
 		if (!list.isEmpty()){
 			
-			int value = 9999;
-			int valueOld = 9999;
+			int bestValue = 9999;
 			Node bestNode = null;
 			while(!list.isEmpty()){
-				int tempV = value;
-				Node tempNode = list.remove();
+				Node tempNode = list.remove(0);
 				Object[] temp = maxValue(tempNode);
 				int tempvalue = (int)temp[0];
-				if(tempvalue<valueOld){
-					value = tempvalue;
+				if(tempvalue<bestValue){
+					bestValue = tempvalue;
 					bestNode = tempNode;
 				}
-				valueOld = tempV;
 				
 			}
-			values[0] = value;
+			values[0] = bestValue;
 			values[1] = bestNode;
 			
 			return values;

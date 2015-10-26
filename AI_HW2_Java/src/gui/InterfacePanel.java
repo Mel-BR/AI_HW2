@@ -52,7 +52,7 @@ public class InterfacePanel extends JPanel implements ActionListener{
 
 		
 		JLabel subtitle1 = new JLabel("Player 1:");
-		subtitle1.setBounds(15, 270, 100, 20);
+		subtitle1.setBounds(15, 250, 100, 20);
 		this.add(subtitle1);
 		
 		radioButtons1 = new JRadioButton[4];
