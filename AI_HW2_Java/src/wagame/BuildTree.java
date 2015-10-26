@@ -16,23 +16,24 @@ public class BuildTree {
 		
 		boardNums = boardIn;
 		boardPlayer = boardS;
+		player = play;
 		root = new Node(null,-1, -1, player);
 		recursiveBuild(root, depth);
 		System.out.println(count);
-		player = play;
+		
 	}
 
-	public void recursiveBuild(Node root, int depth){
-		if (depth <= 0){
-			root.evaluateUtility(player);
+	public void recursiveBuild(Node currNode, int depth){
+		if (depth <= 0){		//then it is a leaf node
+			currNode.evaluateUtility(player);
 			return;
 		}
 		for (int x = 0; x<boardNums.length; x++){
 			for (int y= 0; y<boardNums[0].length; y++){
-				if (root.checkParents(x,y) == 0){
+				if (currNode.checkParents(x,y) == 0){
 					//System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
 					count++;
-					recursiveBuild(new Node(root, x,y,(root.player==1)?2:1), depth-1);
+					recursiveBuild(new Node(currNode, x,y,(currNode.player==1)?2:1), depth-1);
 				}
 			}
 		}
@@ -77,10 +78,13 @@ public class BuildTree {
 				return boardPlayer[x][y];
 			else if (boardPlayer[x][y] != 0)
 				return boardPlayer[x][y];
-			else if (parent.x != x && parent.y != y)
+			else if (parent.x != x || parent.y != y)
 				return parent.checkParents(x, y);
+			else if (parent.x == x && parent.y == y)
+				return parent.player;
 			else
-				return (parent.player);
+				System.out.println("THIS SHOULD NOT HAPPEN");
+			return 0;
 		}
 
 		public void evaluateType(){
@@ -117,8 +121,8 @@ public class BuildTree {
 		}
 		
 		public int recursiveUtility (int [][]board){
-			if (parent.parent == null){
-				return HelpFunc.addPos(board, boardNums, this);
+			if (parent == null){
+				return 0;
 			}
 			return parent.recursiveUtility(board)+HelpFunc.addPos(board, boardNums, this);
 		}
