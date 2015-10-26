@@ -3,6 +3,7 @@ package wagame;
 import java.util.List;
 import java.util.Queue;
 
+import gui.GUI;
 import wagame.BuildTree2.Node;
 
 public class MinimaxSearch {
@@ -35,6 +36,10 @@ public class MinimaxSearch {
 				Node tempNode = list.remove(0);
 				Object[] temp = minValue(tempNode);
 				int tempvalue = (Integer) temp[0];
+				
+				if(tempNode.player==1){
+					GUI.player1Nodes++;}
+					else{GUI.player2Nodes++;}
 				
 				if(tempvalue>bestValue){
 					bestValue = tempvalue;
@@ -69,6 +74,11 @@ public class MinimaxSearch {
 				Node tempNode = list.remove(0);
 				Object[] temp = maxValue(tempNode);
 				int tempvalue = (Integer)temp[0];
+				
+				if(tempNode.player==1){
+					GUI.player1Nodes++;}
+					else{GUI.player2Nodes++;}
+				
 				if(tempvalue<bestValue){
 					bestValue = tempvalue;
 					bestNode = tempNode;

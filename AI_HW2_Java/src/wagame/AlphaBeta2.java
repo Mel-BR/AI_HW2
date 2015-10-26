@@ -40,6 +40,10 @@ public class AlphaBeta2 {
 				Object[] temp = minValue(tempNode,bestValue);
 				int tempvalue = (Integer) temp[0];
 				
+				if(tempNode.player==1){
+					GUI.player1Nodes++;}
+					else{GUI.player2Nodes++;}
+				
 				if(tempvalue>bestValue){
 					bestValue = tempvalue;
 					bestNode = tempNode;
@@ -79,6 +83,11 @@ public class AlphaBeta2 {
 					bestValue = tempvalue;
 					bestNode = tempNode;
 				}
+				
+				if(tempNode.player==1){
+					GUI.player1Nodes++;}
+					else{GUI.player2Nodes++;}
+				
 				if(bestValue<pruningCutOff){
 					break;
 				}

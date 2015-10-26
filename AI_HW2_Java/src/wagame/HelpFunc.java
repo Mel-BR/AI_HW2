@@ -145,6 +145,7 @@ public class HelpFunc {
 	public static int extraUtility(int[][] tempBoard, int[][] numBoard, int player) {
 		// TODO Auto-generated method stub
 		int utility = 0;
+		float k = 0.5F;
 		
 		for (int row = 0; row < tempBoard[0].length; row++) {
 			for (int col = 0; col < tempBoard.length; col++) {
@@ -158,7 +159,7 @@ public class HelpFunc {
 							if (col+1==6||temp){
 								temp = (col-1 > -1 && tempBoard[row][col-1] !=  0);
 								if(col-1==-1||temp){
-									utility+=numBoard[row][col];
+									utility+=numBoard[row][col]*k;
 								}
 							}
 							

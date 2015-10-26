@@ -31,9 +31,7 @@ public class BuildTree2 {
 			for (int y= 0; y<boardNums[0].length; y++){
 				if (node.state[x][y] == 0){
 					
-					if(playerSuper==1){
-					GUI.player1Nodes++;}
-					else{GUI.player2Nodes++;}
+					
 					
 					int[][] newState = HelpFunc.copy(node.state);
 					HelpFunc.makeMove(newState, x, y, node.player);
