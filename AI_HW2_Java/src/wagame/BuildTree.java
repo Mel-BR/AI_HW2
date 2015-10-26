@@ -10,12 +10,14 @@ public class BuildTree {
 	int[][]  boardPlayer = new int [6][6];
 	Node root;
 	int count = 0;
+	int playerSuper;
 
 	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
 		
 		boardNums = boardIn;
 		boardPlayer = boardS;
-		root = new Node(null,-1, -1, player);
+		playerSuper = player;
+		root = new Node(null,-1, -1, playerSuper);
 		recursiveBuild(root, depth);
 		System.out.println(count);
 	}

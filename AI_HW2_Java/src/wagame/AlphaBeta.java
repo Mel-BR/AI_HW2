@@ -18,7 +18,7 @@ public class AlphaBeta {
 			//System.out.println("Leaf with utility: " + root.utility);
 			return node.utility;
 		}
-		else if(node.player==1){
+		else if(node.player==tree.playerSuper){
 			int val = -10000;
 			Iterator<BuildTree.Node> it = node.children.iterator();
 			while (it.hasNext()){
