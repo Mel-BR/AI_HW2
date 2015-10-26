@@ -128,6 +128,7 @@ public class InterfacePanel extends JPanel implements ActionListener{
 			gui.playersIDTurn = 1;
 			gui.player1Nodes = 0;
 			gui.player2Nodes = 0;
+			gui.startTime = System.currentTimeMillis();
 
 
 		}else if( e.getSource() == buttons[1]){
