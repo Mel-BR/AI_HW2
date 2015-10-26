@@ -195,6 +195,14 @@ public class GUI implements Runnable {
 					playersIDTurn = 2;
 					startTime = System.currentTimeMillis();
 
+				}else if(player1mode==4){
+					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player1Depth ,2);
+					alf.applySol(alf.getSol());
+
+					this.player1Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 2;
+					startTime = System.currentTimeMillis();
+
 				}
 
 
@@ -225,6 +233,14 @@ public class GUI implements Runnable {
 					AlphaBeta2 alf = new AlphaBeta2();
 					alf.searchMaxMove(this.boardState, this.currBoard,player2Depth ,2);
 
+
+					this.player2Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 1;
+					startTime = System.currentTimeMillis();
+
+				}else if(player2mode==4){
+					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player2Depth ,1);
+					alf.applySol(alf.getSol());
 
 					this.player2Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 1;

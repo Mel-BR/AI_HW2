@@ -52,14 +52,14 @@ public class InterfacePanel extends JPanel implements ActionListener{
 
 		
 		JLabel subtitle1 = new JLabel("Player 1:");
-		subtitle1.setBounds(15, 250, 100, 20);
+		subtitle1.setBounds(15, 240, 100, 20);
 		this.add(subtitle1);
 		
-		radioButtons1 = new JRadioButton[4];
+		radioButtons1 = new JRadioButton[5];
 		ButtonGroup group = new ButtonGroup();
-		for (int i = 0; i < 4 ; i++){
+		for (int i = 0; i < 5 ; i++){
 			radioButtons1[i] = new JRadioButton();
-			radioButtons1[i].setBounds(15, 280+30*i, 150, 30);
+			radioButtons1[i].setBounds(15, 260+30*i, 150, 30);
 			this.add(radioButtons1[i]);
 			group.add(radioButtons1[i]);
 			radioButtons1[i].addActionListener(this);
@@ -69,6 +69,7 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		radioButtons1[1].setText("Minimax");
 		radioButtons1[2].setText("Alphabeta");
 		radioButtons1[3].setText("Alphabeta2");
+		radioButtons1[4].setText("MinimaxMax");
 		radioButtons1[0].setSelected(true);
 		
 		JLabel subtitle2 = new JLabel("Player 2:");
@@ -76,11 +77,11 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		this.add(subtitle2);
 		
 		
-		radioButtons2 = new JRadioButton[4];
+		radioButtons2 = new JRadioButton[5];
 		ButtonGroup group2 = new ButtonGroup();
-		for (int i = 0; i < 4 ; i++){
+		for (int i = 0; i < 5 ; i++){
 			radioButtons2[i] = new JRadioButton();
-			radioButtons2[i].setBounds(15, 450+30*i, 150, 30);
+			radioButtons2[i].setBounds(15, 440+30*i, 150, 30);
 			this.add(radioButtons2[i]);
 			group2.add(radioButtons2[i]);
 			radioButtons2[i].addActionListener(this);
@@ -90,6 +91,7 @@ public class InterfacePanel extends JPanel implements ActionListener{
 		radioButtons2[1].setText("Minimax");
 		radioButtons2[2].setText("Alphabeta");
 		radioButtons2[3].setText("Alphabeta2");
+		radioButtons2[4].setText("MinimaxMax");
 		radioButtons2[2].setSelected(true);
 		
 		
@@ -137,6 +139,8 @@ public class InterfacePanel extends JPanel implements ActionListener{
 			gui.player1mode = 2;
 		}else if(e.getSource() == radioButtons1[3]){
 			gui.player1mode = 3;
+		}else if(e.getSource() == radioButtons1[4]){
+			gui.player1mode = 4;
 		}else if(e.getSource() == radioButtons2[0]){
 			gui.player2mode = 0;
 		}else if(e.getSource() == radioButtons2[1]){
@@ -145,6 +149,8 @@ public class InterfacePanel extends JPanel implements ActionListener{
 			gui.player2mode = 2;
 		}else if(e.getSource() == radioButtons2[3]){
 			gui.player2mode = 3;
+		}else if(e.getSource() == radioButtons2[4]){
+			gui.player1mode = 4;
 		}else if(e.getSource()==player1Depth){
 			JComboBox cb = (JComboBox)e.getSource();
 	        String depth = (String)cb.getSelectedItem();
