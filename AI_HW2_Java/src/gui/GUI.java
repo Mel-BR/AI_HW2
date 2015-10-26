@@ -179,7 +179,7 @@ public class GUI implements Runnable {
 
 
 				}else if(player1mode==2){
-					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player1Depth ,1);
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player1Depth ,2);
 					alf.applySol(alf.getSol());
 					panel.setMatrix(this.currBoard);
 
@@ -213,7 +213,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player2mode==2){
-					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,2);
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,1);
 					alf.applySol(alf.getSol());
 					//panel.setMatrix(this.currBoard);
 
