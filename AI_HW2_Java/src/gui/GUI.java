@@ -215,7 +215,7 @@ public class GUI implements Runnable {
 				}else if(player2mode==2){
 					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,1);
 					alf.applySol(alf.getSol());
-					panel.setMatrix(this.currBoard);
+					//panel.setMatrix(this.currBoard);
 
 					this.player2Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 1;
@@ -224,7 +224,7 @@ public class GUI implements Runnable {
 				}else if(player2mode==3){
 					MinimaxSearch2 alf = new MinimaxSearch2(this.boardState, this.currBoard,player2Depth ,1);
 					alf.applySol(alf.getSol());
-					panel.setMatrix(this.currBoard);
+					//panel.setMatrix(this.currBoard);
 					
 
 					this.player2Time+= System.currentTimeMillis()-startTime;
@@ -237,11 +237,7 @@ public class GUI implements Runnable {
 		}
 
 		tickCount++;
-		try {
-			Thread.sleep(1);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		
 
 	}
 	
@@ -273,14 +269,15 @@ public class GUI implements Runnable {
 		infoPanel.labels2[3].setText(Float.toString((float) (this.player1Time/1000.0))+"[s]");
 		infoPanel.labels2[4].setText(Float.toString((float) (this.player2Time/1000.0))+"[s]");
 		
-//		System.out.printf("Player1: Depth=%d, Mode=%d\n",player1Depth,player1mode);
-//		System.out.printf("Player2: Depth=%d, Mode=%d\n",player2Depth,player2mode);
+//		System.out.printf("Player1: Depth=%d, Mode=%d, playerIDturn?=%d\n",player1Depth,player1mode,this.playersIDTurn);
+//		System.out.printf("Player2: Depth=%d, Mode=%d, playerIDturn?=%d\n",player2Depth,player2mode,this.playersIDTurn);
 
 	}
 
 	public void render(){
 		//paint some things you already know
-		frame.repaint();
+		panel.repaint();
+		panel.revalidate();
 		//frame.panel.repaint();
 
 	}

@@ -85,14 +85,14 @@ public class BuildTree {
 			if (checkParents(x+1, y) == player || checkParents(x-1, y) == player || checkParents(x, y+1) == player || checkParents(x, y-1) == player)
 			{
 				moveType = 'b';
-				if (x+1 < 6 && checkParents(x+1, y) == ((player == 1)? 2:1)){
-				}
-				if (x-1 > -1 && checkParents(x-1, y) == ((player == 1)? 2:1)){
-				}
-				if (y+1 < 6 && checkParents(x, y+1) == ((player == 1)? 2:1)){
-				}
-				if (y-1 > -1 && checkParents(x, y-1) == ((player == 1)? 2:1)){
-				}
+//				if (x+1 < 6 && checkParents(x+1, y) == ((player == 1)? 2:1)){
+//				}
+//				if (x-1 > -1 && checkParents(x-1, y) == ((player == 1)? 2:1)){
+//				}
+//				if (y+1 < 6 && checkParents(x, y+1) == ((player == 1)? 2:1)){
+//				}
+//				if (y-1 > -1 && checkParents(x, y-1) == ((player == 1)? 2:1)){
+//				}
 			}
 			else 
 				moveType = 'p';
@@ -105,9 +105,9 @@ public class BuildTree {
 					if (boardNums[x][y] ==player){
 						utility += boardNums[x][y];
 					}
-					else if(boardNums[x][y] == ((player ==1)? 2:1)){
-						utility -= boardNums[x][y];
-					}
+//					else if(boardNums[x][y] == ((player ==1)? 2:1)){
+//						utility -= boardNums[x][y];
+//					}
 				}
 			}
 			int [][] tempBoard = HelpFunc.copy(boardPlayer);
