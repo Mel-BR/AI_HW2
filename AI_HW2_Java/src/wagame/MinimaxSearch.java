@@ -34,7 +34,7 @@ public class MinimaxSearch {
 			while(!list.isEmpty()){
 				Node tempNode = list.remove(0);
 				Object[] temp = minValue(tempNode);
-				int tempvalue = (int) temp[0];
+				int tempvalue = (Integer) temp[0];
 				
 				if(tempvalue>bestValue){
 					bestValue = tempvalue;
@@ -68,7 +68,7 @@ public class MinimaxSearch {
 			while(!list.isEmpty()){
 				Node tempNode = list.remove(0);
 				Object[] temp = maxValue(tempNode);
-				int tempvalue = (int)temp[0];
+				int tempvalue = (Integer)temp[0];
 				if(tempvalue<bestValue){
 					bestValue = tempvalue;
 					bestNode = tempNode;

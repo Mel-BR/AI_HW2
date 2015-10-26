@@ -38,7 +38,7 @@ public class AlphaBeta2 {
 			while(!list.isEmpty()){
 				Node tempNode = list.remove(0);
 				Object[] temp = minValue(tempNode,bestValue);
-				int tempvalue = (int) temp[0];
+				int tempvalue = (Integer) temp[0];
 				
 				if(tempvalue>bestValue){
 					bestValue = tempvalue;
@@ -74,7 +74,7 @@ public class AlphaBeta2 {
 			while(!list.isEmpty()){
 				Node tempNode = list.remove(0);
 				Object[] temp = maxValue(tempNode,bestValue);
-				int tempvalue = (int)temp[0];
+				int tempvalue = (Integer)temp[0];
 				if(tempvalue<bestValue){
 					bestValue = tempvalue;
 					bestNode = tempNode;
