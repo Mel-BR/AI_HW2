@@ -3,19 +3,22 @@ package wagame;
 import java.util.List;
 import java.util.Queue;
 
-import wagame.BuildTree.Node;
+import wagame.BuildTree2.Node;
 
 public class MinimaxSearch {
 	
 	
 	public void searchMaxMove(int[][] board, int[][] currMatrix, int depth,int player){
-		BuildTree tree = new BuildTree(board, currMatrix, depth, player);
+		BuildTree2 tree = new BuildTree2(board, currMatrix, depth, player);
 		
 		Object[] solution = maxValue(tree.root);
 		Node solutionNode = (Node) solution[1];
-		System.out.printf("row=%d,col=%d\n",solutionNode.x,solutionNode.y);
-		HelpFunc.makeMove(currMatrix, solutionNode.x, solutionNode.y, player);
-//		currMatrix[solutionNode.x][solutionNode.y]=player;
+		
+		for (int y = 0; y < solutionNode.state.length; y++){
+			for (int x= 0; x< solutionNode.state[0].length; x++){
+				currMatrix [x][y] = solutionNode.state [x][y];
+			}
+		}
 	}
 	
 	

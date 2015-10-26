@@ -142,4 +142,35 @@ public class HelpFunc {
 		return isGameFinished;
 	}
 
+	public static int extraUtility(int[][] tempBoard, int[][] numBoard, int player) {
+		// TODO Auto-generated method stub
+		int utility = 0;
+		
+		for (int row = 0; row < tempBoard[0].length; row++) {
+			for (int col = 0; col < tempBoard.length; col++) {
+				if (tempBoard[row][col]==player){
+
+					boolean temp =(row+1 < 6 && tempBoard[row+1][col] !=  0);
+					if (row+1==6 || temp){
+						temp = (row-1 > -1 && tempBoard[row-1][col] !=  0);
+						if (row-1==-1||temp){
+							temp = (col+1 < 6 && tempBoard[row][col+1] !=  0);
+							if (col+1==6||temp){
+								temp = (col-1 > -1 && tempBoard[row][col-1] !=  0);
+								if(col-1==-1||temp){
+									utility+=numBoard[row][col];
+								}
+							}
+							
+						}
+					}
+					
+				}
+			}
+		}
+		
+		
+		return utility;
+	}
+
 }

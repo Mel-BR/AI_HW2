@@ -45,7 +45,7 @@ public class GUI implements Runnable {
 	int frames = 0;
 
 	int[][] boardState = new int[6][6];
-	int[][] currBoard = new int[6][6];
+	public int[][] currBoard = new int[6][6];
 	
 	int boxSize = 100;
 	int player1mode = 0; //0 = human, 1 = minmax, 2 = alphabeta
@@ -65,7 +65,7 @@ public class GUI implements Runnable {
 	public GUI(){
 
 
-		boardState = HelpFunc.textToMatrix("Narvik.txt");
+		boardState = HelpFunc.textToMatrix("Smolensk.txt");
 		
 		int boardWidth = (int) ((boardState[0].length)*boxSize);
 		int boardHeight = (int) ((boardState.length)*boxSize);
@@ -102,6 +102,7 @@ public class GUI implements Runnable {
 		frame.setVisible(true);
 
 		startTime = System.currentTimeMillis();
+		
 		
 
 	}
@@ -192,7 +193,7 @@ public class GUI implements Runnable {
 
 				}else if(player1mode==3){
 					AlphaBeta2 alf = new AlphaBeta2();
-					alf.searchMaxMove(this.boardState, this.currBoard,player1Depth ,1);
+					alf.searchMaxMove(this.boardState, this.currBoard,player1Depth ,1,this);
 
 					this.player1Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 2;
@@ -234,7 +235,7 @@ public class GUI implements Runnable {
 
 				}else if(player2mode==3){
 					AlphaBeta2 alf = new AlphaBeta2();
-					alf.searchMaxMove(this.boardState, this.currBoard,player2Depth ,2);
+					alf.searchMaxMove(this.boardState, this.currBoard,player2Depth ,2,this);
 
 
 					this.player2Time+= System.currentTimeMillis()-startTime;

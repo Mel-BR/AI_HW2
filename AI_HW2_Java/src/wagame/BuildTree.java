@@ -23,20 +23,20 @@ public class BuildTree {
 		recursiveBuild(root, depth);
 	}
 
-	public void recursiveBuild(Node root, int depth){
+	public void recursiveBuild(Node node, int depth){
 		if (depth <= 0){
-			root.evaluateUtility(root.player);
+			node.evaluateUtility(this.root.player);
 			return;
 		}
 		for (int x = 0; x<boardNums.length; x++){
 			for (int y= 0; y<boardNums[0].length; y++){
-				if (root.checkParents(x,y) == 0){
+				if (node.checkParents(x,y) == 0){
 					//System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
 					if(playerSuper==1){
 					GUI.player1Nodes++;}
 					else{GUI.player2Nodes++;}
 					
-					recursiveBuild(new Node(root, x,y,(root.player==1)?2:1), depth-1);
+					recursiveBuild(new Node(node, x,y,(node.player==1)?2:1), depth-1);
 				}
 			}
 		}
@@ -118,6 +118,7 @@ public class BuildTree {
 			}
 			int [][] tempBoard = HelpFunc.copy(boardPlayer);
 			utility += recursiveUtility(tempBoard);
+			utility += HelpFunc.extraUtility(tempBoard,boardNums,player);
 		}
 		
 		public int recursiveUtility (int [][]board){

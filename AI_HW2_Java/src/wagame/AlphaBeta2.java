@@ -1,21 +1,28 @@
 package wagame;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 
-import wagame.BuildTree.Node;
+import gui.GUI;
+import wagame.BuildTree2.Node;
 
 public class AlphaBeta2 {
 	
-	
-	public void searchMaxMove(int[][] board, int[][] currMatrix, int depth,int player){
-		BuildTree tree = new BuildTree(board, currMatrix, depth, player);
+	public void searchMaxMove(int[][] board, int[][] currMatrix, int depth,int player, GUI gui){
+		BuildTree2 tree = new BuildTree2(board, currMatrix, depth, player);
 		
 		Object[] solution = maxValue(tree.root, 9999);
 		Node solutionNode = (Node) solution[1];
-		System.out.printf("row=%d,col=%d\n",solutionNode.x,solutionNode.y);
-		HelpFunc.makeMove(currMatrix, solutionNode.x, solutionNode.y, player);
-//		currMatrix[solutionNode.x][solutionNode.y]=player;
+		
+		
+		
+		for (int y = 0; y < solutionNode.state.length; y++){
+			for (int x= 0; x< solutionNode.state[0].length; x++){
+				currMatrix [x][y] = solutionNode.state [x][y];
+			}
+		}
+		
 	}
 	
 	
