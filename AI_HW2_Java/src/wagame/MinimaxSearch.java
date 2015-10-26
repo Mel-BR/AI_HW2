@@ -7,11 +7,14 @@ import wagame.BuildTree.Node;
 public class MinimaxSearch {
 	
 	
-	public int[] searchMaxMove(){
-		int[] xyPos = new int[2];
-				
+	public void searchMaxMove(int[][] board, int[][] currMatrix, int depth,int player){
+		BuildTree tree = new BuildTree(board, currMatrix, depth, player);
 		
-		return xyPos;
+		Object[] solution = maxValue(tree.root);
+		Node solutionNode = (Node) solution[1];
+		System.out.printf("row=%d,col=%d\n",solutionNode.x,solutionNode.y);
+		HelpFunc.makeMove(currMatrix, solutionNode.x, solutionNode.y, player);
+//		currMatrix[solutionNode.x][solutionNode.y]=player;
 	}
 	
 	

@@ -10,6 +10,7 @@ import gui.GUIPanel;
 import wagame.AlphaBeta;
 import wagame.BuildTree.Node;
 import wagame.HelpFunc;
+import wagame.MinimaxSearch;
 
 public class GUI implements Runnable {
 
@@ -48,6 +49,9 @@ public class GUI implements Runnable {
 	int player1mode = 0; //0 = human, 1 = minmax, 2 = alphabeta
 	int player2mode = 1;
 	int playersIDTurn = 1;
+	
+	public int player1Depth = 4;
+	public int player2Depth = 4;
 	
 	long startTime;
 	long player1Time;
@@ -155,46 +159,79 @@ public class GUI implements Runnable {
 	public void tick(){
 		//Do some shit here
 		updateLabels();
-		if(playersIDTurn == 1){
-			
-			if(player1mode==0){
-				
-				
-			}else if(player1mode==1){
-				
-				
-			}else if(player1mode==2){
-				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,2 ,2);
-				alf.applySol(alf.getSol());
-				panel.setMatrix(this.currBoard);
-				
-				this.player1Time+= System.currentTimeMillis()-startTime;
-				playersIDTurn = 2;
-				startTime = System.currentTimeMillis();
-				
+		if (!HelpFunc.isGameFinished(currBoard)){
+
+			if(playersIDTurn == 1){
+
+				if(player1mode==0){
+
+
+				}else if(player1mode==1){
+					MinimaxSearch minmax = new MinimaxSearch();
+					minmax.searchMaxMove(this.boardState, this.currBoard,player1Depth ,1);
+
+
+					this.player1Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 2;
+					startTime = System.currentTimeMillis();
+
+
+				}else if(player1mode==2){
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player1Depth ,2);
+					alf.applySol(alf.getSol());
+					panel.setMatrix(this.currBoard);
+
+					this.player1Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 2;
+					startTime = System.currentTimeMillis();
+
+				}else if(player1mode==3){
+					//				AlphaBeta2 alf = new AlphaBeta2(this.boardState, this.currBoard,player1Depth ,2);
+					//				alf.applySol(alf.getSol());
+					//				panel.setMatrix(this.currBoard);
+
+					this.player1Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 2;
+					startTime = System.currentTimeMillis();
+
+				}
+
+
+
+			}else{
+
+				if(player2mode==0){
+
+
+				}else if(player2mode==1){
+					MinimaxSearch minmax = new MinimaxSearch();
+					minmax.searchMaxMove(this.boardState, this.currBoard,player2Depth ,2);
+
+					this.player2Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 1;
+					startTime = System.currentTimeMillis();
+
+				}else if(player2mode==2){
+					AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,player2Depth ,1);
+					alf.applySol(alf.getSol());
+					panel.setMatrix(this.currBoard);
+
+					this.player2Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 1;
+					startTime = System.currentTimeMillis();
+
+				}else if(player2mode==3){
+//					AlphaBeta2 alf = new AlphaBeta2(this.boardState, this.currBoard,player2Depth ,1);
+//					alf.applySol(alf.getSol());
+//					panel.setMatrix(this.currBoard);
+
+					this.player2Time+= System.currentTimeMillis()-startTime;
+					playersIDTurn = 1;
+					startTime = System.currentTimeMillis();
+
+				}
+
 			}
-			
-			
-			
-		}else{
-			
-			if(player2mode==0){
-				
-				
-			}else if(player2mode==1){
-				
-				
-			}else if(player2mode==2){
-				AlphaBeta alf = new AlphaBeta(this.boardState, this.currBoard,4 ,1);
-				alf.applySol(alf.getSol());
-				panel.setMatrix(this.currBoard);
-				
-				this.player2Time+= System.currentTimeMillis()-startTime;
-				playersIDTurn = 1;
-				startTime = System.currentTimeMillis();
-				
-			}
-			
 		}
 
 		tickCount++;
@@ -204,14 +241,13 @@ public class GUI implements Runnable {
 	
 	public void makeMove(int col, int row){
 		if (playersIDTurn==1 && player1mode == 0){
-			System.out.printf("row%d, col%d",row,col);
 			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
 			
 			this.player1Time+= System.currentTimeMillis()-startTime;
 			playersIDTurn = 2;
 			startTime = System.currentTimeMillis();
 		}else if(playersIDTurn==2 && player2mode == 0){
-			System.out.printf("row%d, col%d",row,col);
+			
 			HelpFunc.makeMove(this.currBoard, row, col, playersIDTurn);
 			
 			this.player2Time+= System.currentTimeMillis()-startTime;
@@ -230,6 +266,10 @@ public class GUI implements Runnable {
 		
 		infoPanel.labels2[3].setText(Float.toString((float) (this.player1Time/1000.0))+"[s]");
 		infoPanel.labels2[4].setText(Float.toString((float) (this.player2Time/1000.0))+"[s]");
+		
+//		System.out.printf("Player1: Depth=%d, Mode=%d\n",player1Depth,player1mode);
+//		System.out.printf("Player2: Depth=%d, Mode=%d\n",player2Depth,player2mode);
+
 	}
 
 	public void render(){

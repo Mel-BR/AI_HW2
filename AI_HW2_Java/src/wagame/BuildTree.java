@@ -113,6 +113,7 @@ public class BuildTree {
 			int [][] tempBoard = HelpFunc.copy(boardPlayer);
 			utility += recursiveUtility(tempBoard);
 		}
+		
 		public int recursiveUtility (int [][]board){
 			if (parent.parent == null){
 				return HelpFunc.addPos(board, boardNums, this);

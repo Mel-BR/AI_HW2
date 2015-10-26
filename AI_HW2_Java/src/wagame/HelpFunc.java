@@ -129,5 +129,17 @@ public class HelpFunc {
 		}
 		return score;
 	}
+	
+	public static boolean isGameFinished(int[][] currMatrix){
+		boolean isGameFinished = true;
+		for (int row = 0; row < currMatrix[0].length; row++) {
+			for (int col = 0; col < currMatrix.length; col++) {
+				if (currMatrix[row][col]==0){
+					isGameFinished = false;
+				}
+			}
+		}
+		return isGameFinished;
+	}
 
 }
