@@ -1,36 +1,58 @@
 package wagame;
-
 import java.util.Iterator;
+
+import wagame.BuildTree.Node;
 
 public class MinimaxSearch2 {
 	int move;
 	BuildTree tree;
-	public MinimaxSearch2(int[][] board, int depth){
-		tree = new BuildTree(board, depth);
-		move = recursiveSearch(tree.root, depth, 0, 10000);
+	int[][]boardPlayer;
+	public MinimaxSearch2(int[][] board, int[][]state, int depth, int player){
+		boardPlayer=state;
+		tree = new BuildTree(board, boardPlayer, depth, player);
+		move = recursiveSearch(tree.root, depth);
 	}
 
-	public int recursiveSearch(BuildTree.Node root, int depth, int alpha, int beta){
+	public int recursiveSearch(BuildTree.Node root, int depth){
 		if (root.children.size()==0){
+			//System.out.println("Leaf with utility: " + root.utility);
 			return root.utility;
 		}
 		else if(root.player==1){
-			int val = 0;
+			int best = -10000;
 			Iterator<BuildTree.Node> it = root.children.iterator();
 			while (it.hasNext()){
-				val = Math.max(val, recursiveSearch(it.next(), depth-1, alpha, beta));
+				best = Math.max(best, recursiveSearch(it.next(), depth-1));
 			}
-			root.utility = val;
-			return val;
+			return best;
 		}
 		else{
-			int val = 10000;
+			int best = 10000;
 			Iterator<BuildTree.Node> it = root.children.iterator();
 			while (it.hasNext()){
-				val = Math.min(val, recursiveSearch(it.next(), depth-1, alpha, beta));
+				best = Math.min(best, recursiveSearch(it.next(), depth-1));
 			}
-			root.utility = val;
-			return val;			
+			return best;	
 		}
 	}
+	
+	public Node getSol(){
+		return tree.searchChildren(move);
+	}
+	
+	public void applySol(Node sol){
+		boardPlayer[sol.x][sol.y]=sol.player;
+		System.out.println("Move executed type: " + sol.moveType + " with utility: " + sol.utility);
+		if (sol.moveType == 'b'){
+			if (sol.x+1 < 6 && boardPlayer[sol.x+1][sol.y] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x+1][sol.y] = sol.player;
+			if (sol.x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x-1][sol.y] = sol.player;
+			if (sol.y+1 < 6 && boardPlayer[sol.x][sol.y+1] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x][sol.y+1] = sol.player;
+			if (sol.y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
+				boardPlayer[sol.x][sol.y-1] = sol.player;
+		}
+	}
+	
 }
