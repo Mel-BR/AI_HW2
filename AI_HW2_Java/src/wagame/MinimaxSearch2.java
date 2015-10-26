@@ -46,7 +46,7 @@ public class MinimaxSearch2 {
 	public void applySol(Node sol){
 		boardPlayer[sol.x][sol.y]=sol.player;
 		System.out.println("Move executed type: " + sol.moveType + " with utility: " + sol.utility);
-		if (sol.moveType == 'b'){
+		//if (sol.moveType == 'b'){
 			if (sol.x+1 < 6 && boardPlayer[sol.x+1][sol.y] == ((sol.player == 1)? 2:1))
 				boardPlayer[sol.x+1][sol.y] = sol.player;
 			if (sol.x-1 > -1 && boardPlayer[sol.x-1][sol.y] == ((sol.player == 1)? 2:1))
@@ -55,7 +55,7 @@ public class MinimaxSearch2 {
 				boardPlayer[sol.x][sol.y+1] = sol.player;
 			if (sol.y-1 > -1 && boardPlayer[sol.x][sol.y-1] == ((sol.player == 1)? 2:1))
 				boardPlayer[sol.x][sol.y-1] = sol.player;
-		}
+		//}
 	}
 	
 }

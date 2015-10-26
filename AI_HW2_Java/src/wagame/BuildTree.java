@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Queue;
 
+import gui.GUI;
+
 public class BuildTree {
 	int[][] boardNums = new int [6][6];
 	int[][]  boardPlayer = new int [6][6];
 	Node root;
-	int count = 0;
+	public int count = 0;
 	int playerSuper;
 
 	public BuildTree(int[][] boardIn, int[][] boardS, int depth, int player){
@@ -19,7 +21,6 @@ public class BuildTree {
 		playerSuper = player;
 		root = new Node(null,-1, -1, playerSuper);
 		recursiveBuild(root, depth);
-		System.out.println(count);
 	}
 
 	public void recursiveBuild(Node root, int depth){
@@ -31,7 +32,10 @@ public class BuildTree {
 			for (int y= 0; y<boardNums[0].length; y++){
 				if (root.checkParents(x,y) == 0){
 					//System.out.println("Depth: " + depth + "	X:	" +x + "	Y:	" +y);
-					count++;
+					if(playerSuper==1){
+					GUI.player1Nodes++;}
+					else{GUI.player2Nodes++;}
+					
 					recursiveBuild(new Node(root, x,y,(root.player==1)?2:1), depth-1);
 				}
 			}

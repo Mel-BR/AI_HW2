@@ -55,6 +55,9 @@ public class GUI implements Runnable {
 	public int player1Depth = 4;
 	public int player2Depth = 4;
 	
+	public static int player1Nodes = 0;
+	public static int player2Nodes = 0;
+	
 	long startTime;
 	long player1Time;
 	long player2Time;
@@ -62,7 +65,7 @@ public class GUI implements Runnable {
 	public GUI(){
 
 
-		boardState = HelpFunc.textToMatrix("Smolensk.txt");
+		boardState = HelpFunc.textToMatrix("Westerplatte.txt");
 		
 		int boardWidth = (int) ((boardState[0].length)*boxSize);
 		int boardHeight = (int) ((boardState.length)*boxSize);
@@ -83,7 +86,7 @@ public class GUI implements Runnable {
 		
 		
 		infoPanel = new infoPanel(this);
-		infoPanel.setBounds(0, boardHeight, boardWidth+interPanel.getWidth(), 100);
+		infoPanel.setBounds(0, boardHeight, boardWidth+interPanel.getWidth(), 150);
 		infoPanel.setBackground(Color.white);
 		
 		frame = new JFrame(NAME);
@@ -284,6 +287,12 @@ public class GUI implements Runnable {
 		infoPanel.labels2[3].setText(Float.toString((float) (this.player1Time/1000.0))+"[s]");
 		infoPanel.labels2[4].setText(Float.toString((float) (this.player2Time/1000.0))+"[s]");
 		
+		infoPanel.labels4[1].setText(Integer.toString(this.player1Nodes));
+		infoPanel.labels4[2].setText(Integer.toString(this.player2Nodes));
+		
+		infoPanel.labels4[3].setText(Float.toString((float) ((this.player1Time+this.player2Time)/1000.0/(36)))+"[s]");
+		infoPanel.labels4[4].setText(Integer.toString((int) ((this.player1Nodes+this.player2Nodes)/(36.0))));
+
 //		System.out.printf("Player1: Depth=%d, Mode=%d, playerIDturn?=%d\n",player1Depth,player1mode,this.playersIDTurn);
 //		System.out.printf("Player2: Depth=%d, Mode=%d, playerIDturn?=%d\n",player2Depth,player2mode,this.playersIDTurn);
 

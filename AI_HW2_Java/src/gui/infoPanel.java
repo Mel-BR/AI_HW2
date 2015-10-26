@@ -13,7 +13,7 @@ public class infoPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	GUI gui;
-	JLabel[] labels1,labels2;
+	JLabel[] labels1,labels2, labels3, labels4;
 
 
 	public infoPanel(GUI gui){
@@ -49,6 +49,32 @@ public class infoPanel extends JPanel{
 		labels2[3].setText("hej");
 		labels2[4].setText("hej");
 		
+		
+		labels3 = new JLabel[5];
+		for (int i = 0; i < 5 ; i++){
+			labels3[i] = new JLabel();
+			labels3[i].setBounds(20+150*i, 70, 150, 40);
+			this.add(labels3[i]);
+		}
+		
+		labels3[0].setText(" ");
+		labels3[1].setText("Player 1 Exp Nodes:");
+		labels3[2].setText("Player 2 Exp Nodes:");
+		labels3[3].setText("Avg Time per move");
+		labels3[4].setText("Avg Nodes per move ");
+		
+		labels4 = new JLabel[5];
+		for (int i = 0; i < 5 ; i++){
+			labels4[i] = new JLabel();
+			labels4[i].setBounds(20+150*i, 90, 150, 40);
+			this.add(labels4[i]);
+		}
+		
+		labels4[0].setText(" ");
+		labels4[1].setText(" ");
+		labels4[2].setText(" ");
+		labels4[3].setText(" ");
+		labels4[4].setText(" ");
 		 
 		
 	}
