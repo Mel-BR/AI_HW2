@@ -25,7 +25,7 @@ public class HelpFunc {
 			{    
 				String[] myString= myLine.split("\t");
 				for (int j = 0; j < myString.length; j++)
-					board[j][i]= Integer.parseInt(myString[j]);
+					board[i][j]= Integer.parseInt(myString[j]);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
