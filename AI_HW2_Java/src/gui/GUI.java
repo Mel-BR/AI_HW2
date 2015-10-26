@@ -186,9 +186,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player1mode==3){
-					//				AlphaBeta2 alf = new AlphaBeta2(this.boardState, this.currBoard,player1Depth ,2);
-					//				alf.applySol(alf.getSol());
-					//				panel.setMatrix(this.currBoard);
+
 
 					this.player1Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 2;
@@ -221,9 +219,7 @@ public class GUI implements Runnable {
 					startTime = System.currentTimeMillis();
 
 				}else if(player2mode==3){
-//					AlphaBeta2 alf = new AlphaBeta2(this.boardState, this.currBoard,player2Depth ,1);
-//					alf.applySol(alf.getSol());
-//					panel.setMatrix(this.currBoard);
+
 
 					this.player2Time+= System.currentTimeMillis()-startTime;
 					playersIDTurn = 1;
@@ -235,7 +231,11 @@ public class GUI implements Runnable {
 		}
 
 		tickCount++;
-
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 	
