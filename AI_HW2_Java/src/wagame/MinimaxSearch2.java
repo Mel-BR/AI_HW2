@@ -15,6 +15,7 @@ public class MinimaxSearch2 {
 
 	public int recursiveSearch(BuildTree.Node root, int depth){
 		if (root.children.size()==0){
+			
 			//System.out.println("Leaf with utility: " + root.utility);
 			return root.utility;
 		}
